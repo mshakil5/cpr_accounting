@@ -5,6 +5,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ClientController;
+use App\Http\Controllers\Admin\TicketSaleController;
 
 
 /*------------------------------------------
@@ -41,6 +42,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/client/{id}/edit', [ClientController::class, 'edit']);
     Route::post('/client-update', [ClientController::class, 'update']);
     Route::get('/client/{id}', [ClientController::class, 'delete']);
+
+
+    // ticket sales 
+    Route::get('/ticket-sale', [TicketSaleController::class, 'index'])->name('admin.ticketsale');
+    Route::post('/ticket-sale', [TicketSaleController::class, 'store']);
+    Route::get('/ticket-sale/{id}/edit', [TicketSaleController::class, 'edit']);
+    Route::post('/ticket-sale-update', [TicketSaleController::class, 'update']);
 
 });
   

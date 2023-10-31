@@ -37,6 +37,14 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{route('admin.ticketsale')}}" class="nav-link {{ (request()->is('admin/ticket-sale*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Ticket Sales
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-copy"></i>
           <p>

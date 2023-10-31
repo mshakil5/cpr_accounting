@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\TicketSaleController;
+use App\Http\Controllers\Admin\RoomRentController;
 
 
 /*------------------------------------------
@@ -49,6 +50,12 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/ticket-sale', [TicketSaleController::class, 'store']);
     Route::get('/ticket-sale/{id}/edit', [TicketSaleController::class, 'edit']);
     Route::post('/ticket-sale-update', [TicketSaleController::class, 'update']);
+
+    // room rent 
+    Route::get('/room-rent', [RoomRentController::class, 'index'])->name('admin.roomrent');
+    Route::post('/room-rent', [RoomRentController::class, 'store']);
+    Route::get('/room-rent/{id}/edit', [RoomRentController::class, 'edit']);
+    Route::post('/room-rent-update', [RoomRentController::class, 'update']);
 
 });
   

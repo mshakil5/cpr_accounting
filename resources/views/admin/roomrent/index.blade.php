@@ -25,7 +25,7 @@
             <!-- general form elements disabled -->
             <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title">Add new ticket sales</h3>
+                <h3 class="card-title">Add new room rent</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -44,23 +44,13 @@
 
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label>Number of ticket</label>
-                        <input type="number" class="form-control" id="number" name="number">
+                        <label>Rent Amount</label>
+                        <input type="number" class="form-control" id="amount" name="amount">
                       </div>
                     </div>
 
                   </div>
                   
-
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <div class="form-group">
-                        <label>Amount</label>
-                        <input type="number" class="form-control" id="amount" name="amount" readonly>
-                      </div>
-                    </div>
-                  </div>
-
                   
                 </form>
               </div>
@@ -101,7 +91,6 @@
                 <tr>
                   <th>Sl</th>
                   <th>Date</th>
-                  <th>Number of Tickets</th>
                   <th>Amount</th>
                   <th>Action</th>
                 </tr>
@@ -111,7 +100,6 @@
                   <tr>
                     <td style="text-align: center">{{ $key + 1 }}</td>
                     <td style="text-align: center">{{$data->date}}</td>
-                    <td style="text-align: center">{{$data->number}}</td>
                     <td style="text-align: center">{{$data->amount}}</td>
                     
                     <td style="text-align: center">
@@ -186,8 +174,8 @@
       //header for csrf-token is must in laravel
       $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
       //
-      var url = "{{URL::to('/admin/ticket-sale')}}";
-      var upurl = "{{URL::to('/admin/ticket-sale-update')}}";
+      var url = "{{URL::to('/admin/room-rent')}}";
+      var upurl = "{{URL::to('/admin/room-rent-update')}}";
       // console.log(url);
       $("#addBtn").click(function(){
       //   alert("#addBtn");
@@ -195,7 +183,6 @@
 
               var form_data = new FormData();
               form_data.append("date", $("#date").val());
-              form_data.append("number", $("#number").val());
               form_data.append("amount", $("#amount").val());
 
               $.ajax({
@@ -235,7 +222,6 @@
             
               var form_data = new FormData();
               form_data.append("date", $("#date").val());
-              form_data.append("number", $("#number").val());
               form_data.append("amount", $("#amount").val());
               form_data.append("codeid", $("#codeid").val());
               
@@ -313,7 +299,6 @@
       function populateForm(data){
           $("#date").val(data.date);
           $("#amount").val(data.amount);
-          $("#number").val(data.number);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');
           $("#addBtn").html('Update');

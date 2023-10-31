@@ -45,6 +45,14 @@
         </a>
       </li>
       <li class="nav-item">
+        <a href="{{route('admin.roomrent')}}" class="nav-link {{ (request()->is('admin/room-rent*')) ? 'active' : '' }}">
+          <i class="nav-icon fas fa-th"></i>
+          <p>
+            Room Rent
+          </p>
+        </a>
+      </li>
+      <li class="nav-item">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-copy"></i>
           <p>

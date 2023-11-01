@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('sale_details', function (Blueprint $table) {
             $table->id();
+            $table->string('invoiceno')->nullable();
             $table->bigInteger('sale_id')->unsigned()->nullable();
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');
             $table->bigInteger('product_id')->unsigned()->nullable();

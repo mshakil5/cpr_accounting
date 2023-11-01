@@ -70,7 +70,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     // sales 
     Route::get('/sales', [SalesController::class, 'index'])->name('admin.sales');
     Route::post('/sales', [SalesController::class, 'store']);
-    Route::get('/sales/{id}/edit', [SalesController::class, 'edit']);
+    Route::get('/sales/{id}/edit', [SalesController::class, 'edit'])->name('admin.salesEdit');
     Route::post('/sales-update', [SalesController::class, 'update']);
     Route::get('/sales/{id}', [SalesController::class, 'delete']);
     

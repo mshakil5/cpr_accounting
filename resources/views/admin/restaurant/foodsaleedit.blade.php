@@ -2,17 +2,6 @@
 
 @section('content')
 
-<!-- Main content -->
-<section class="content" id="newBtnSection">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-2">
-            <button type="button" class="btn btn-secondary my-3" id="newBtn">Add new</button>
-        </div>
-      </div>
-    </div>
-</section>
-  <!-- /.content -->
 
 
 
@@ -25,7 +14,7 @@
             <!-- general form elements disabled -->
             <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title">Add new food sales</h3>
+                <h3 class="card-title">Sales Edit</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -110,8 +99,8 @@
               
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" id="addBtn" class="btn btn-secondary" value="Create">Create</button>
-                <button type="submit" id="FormCloseBtn" class="btn btn-default">Cancel</button>
+                <button type="submit" id="addBtn" class="btn btn-secondary" value="Update">Update</button>
+                <a href="{{route('admin.sales')}}" class="btn btn-default">Cancel</a>
               </div>
               <!-- /.card-footer -->
               <!-- /.card-body -->
@@ -125,64 +114,7 @@
     <!-- /.content -->
 
 
-<!-- Main content -->
-<section class="content" id="contentContainer">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-12">
-          <!-- /.card -->
 
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title">All Data</h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table id="example1" class="table table-bordered table-striped">
-                <thead>
-                <tr>
-                  <th>Sl</th>
-                  <th>Date</th>
-                  <th>Invoice No</th>
-                  <th>Description</th>
-                  <th>Discount</th>
-                  <th>Amount</th>
-                  <th>Action</th>
-                </tr>
-                </thead>
-                <tbody>
-                  @foreach ($data as $key => $data)
-                  <tr>
-                    <td style="text-align: center">{{ $key + 1 }}</td>
-                    <td style="text-align: center">{{$data->date}}</td>
-                    <td style="text-align: center">{{$data->invoiceno}}</td>
-                    <td style="text-align: center">{{$data->description}}</td>
-                    <td style="text-align: center">{{$data->discount}}</td>
-                    <td style="text-align: center">{{$data->net_amount}}</td>
-                    
-                    <td style="text-align: center">
-                      <a href="{{route('admin.salesEdit', $data->id)}}"><i class="fa fa-eye" style="color: #1ea948;font-size:16px;"></i></a>
-                      <a href="{{route('admin.salesEdit', $data->id)}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
-                      {{-- <a id="deleteBtn" rid="{{$data->id}}"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg>
-                      </a> --}}
-                    </td>
-                  </tr>
-                  @endforeach
-                
-                </tbody>
-              </table>
-            </div>
-            <!-- /.card-body -->
-          </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
-      </div>
-      <!-- /.row -->
-    </div>
-    <!-- /.container-fluid -->
-</section>
-<!-- /.content -->
 
 
 @endsection
@@ -224,18 +156,6 @@
 
 
   $(document).ready(function () {
-      $("#addThisFormContainer").hide();
-      $("#newBtn").click(function(){
-          clearform();
-          $("#newBtn").hide(100);
-          $("#addThisFormContainer").show(300);
-
-      });
-      $("#FormCloseBtn").click(function(){
-          $("#addThisFormContainer").hide(200);
-          $("#newBtn").show(100);
-          clearform();
-      });
 
       //calculation end
       $("#discount").keyup(function(){

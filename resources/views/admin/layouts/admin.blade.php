@@ -168,6 +168,15 @@
 <!-- SweetAlert2 -->
 <script src="{{ asset('assets/admin/plugins/sweetalert2/sweetalert2.min.js')}}"></script>
 <script src="{{ asset('assets/admin/plugins/toastr/toastr.min.js')}}"></script>
+
+<script>
+  function pagetop() {
+      window.scrollTo({
+          top: 100,
+          behavior: 'smooth',
+      });
+  }
+</script>
 @yield('script')
 </body>
 </html>

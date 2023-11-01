@@ -135,7 +135,6 @@ class AdminController extends Controller
 
     public function adminDelete($id)
     {
-
         if(User::destroy($id)){
             return response()->json(['success'=>true,'message'=>'User has been deleted successfully']);
         }else{

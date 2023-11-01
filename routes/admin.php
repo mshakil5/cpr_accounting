@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AccountController;
 use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\TicketSaleController;
 use App\Http\Controllers\Admin\RoomRentController;
+use App\Http\Controllers\Admin\ProductController;
 
 
 /*------------------------------------------
@@ -56,6 +57,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::post('/room-rent', [RoomRentController::class, 'store']);
     Route::get('/room-rent/{id}/edit', [RoomRentController::class, 'edit']);
     Route::post('/room-rent-update', [RoomRentController::class, 'update']);
+
+    // product 
+    Route::get('/product', [ProductController::class, 'index'])->name('admin.product');
+    Route::post('/product', [ProductController::class, 'store']);
+    Route::get('/product/{id}/edit', [ProductController::class, 'edit']);
+    Route::post('/product-update', [ProductController::class, 'update']);
+    Route::get('/product/{id}', [ProductController::class, 'delete']);
 
 });
   

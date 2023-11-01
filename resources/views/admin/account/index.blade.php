@@ -25,10 +25,11 @@
             <!-- general form elements disabled -->
             <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title">Add new admin</h3>
+                <h3 class="card-title">Add new account</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
+                <div class="ermsg"></div>
                 <form id="createThisForm">
                   @csrf
                   <input type="hidden" class="form-control" id="codeid" name="codeid">

@@ -34,6 +34,13 @@ class ProductController extends Controller
             exit();
         }
 
+        $chkemail = Product::where('code',$request->code)->first();
+        if($chkemail){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This code already added.</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
         $data = new Product;
         $data->name = $request->name;
         $data->code = $request->code;
@@ -72,6 +79,13 @@ class ProductController extends Controller
         }
         if(empty($request->price)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Price \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        $chkemail = Product::where('code',$request->code)->where('id','!=', $request->codeid)->first();
+        if($chkemail){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This code already added.</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }

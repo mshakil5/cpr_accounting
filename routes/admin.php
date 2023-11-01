@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ClientController;
 use App\Http\Controllers\Admin\TicketSaleController;
 use App\Http\Controllers\Admin\RoomRentController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\SalesController;
 
 
 /*------------------------------------------
@@ -64,6 +65,16 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/product/{id}/edit', [ProductController::class, 'edit']);
     Route::post('/product-update', [ProductController::class, 'update']);
     Route::get('/product/{id}', [ProductController::class, 'delete']);
+
+    
+    // sales 
+    Route::get('/sales', [SalesController::class, 'index'])->name('admin.sales');
+    Route::post('/sales', [SalesController::class, 'store']);
+    Route::get('/sales/{id}/edit', [SalesController::class, 'edit']);
+    Route::post('/sales-update', [SalesController::class, 'update']);
+    Route::get('/sales/{id}', [SalesController::class, 'delete']);
+    
+    Route::post('getproduct', [SalesController::class, 'getproduct']);
 
 });
   

@@ -12,4 +12,8 @@ class SaleDetail extends Model
     public function sale(){
         return $this->belongsTo('App\Models\Sale');
     }
+
+    public function product(){
+        return $this->belongsTo('App\Models\Product');
+    }
 }

@@ -15,7 +15,7 @@ class SalesController extends Controller
     public function index()
     {
         $foods = Product::all();
-        $data = Sale::orderby('id','DESC')->get();
+        $data = Sale::with('saledetail')->orderby('id','DESC')->get();
         return view('admin.restaurant.foodsale', compact('data','foods'));
     }
 

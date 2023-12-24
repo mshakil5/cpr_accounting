@@ -11,12 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ticket_sales', function (Blueprint $table) {
+        Schema::create('chart_of_accounts', function (Blueprint $table) {
             $table->id();
+            $table->string('account_head')->nullable();
+            $table->string('sub_account_head')->nullable();
+            $table->string('account_name')->nullable();
             $table->string('date')->nullable();
-            $table->string('number')->nullable();
-            $table->double('price_per_unit',10,2)->nullable();
-            $table->double('amount',10,2)->nullable();
+            $table->text('description')->nullable();
             $table->boolean('status')->default(1);
             $table->string('updated_by')->nullable();
             $table->string('created_by')->nullable();
@@ -29,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ticket_sales');
+        Schema::dropIfExists('chart_of_accounts');
     }
 };

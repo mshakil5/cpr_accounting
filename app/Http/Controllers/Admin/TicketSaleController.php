@@ -28,6 +28,11 @@ class TicketSaleController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        if(empty($request->price_per_unit)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Ticket Price \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         if(empty($request->number)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Number of ticket \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -37,6 +42,7 @@ class TicketSaleController extends Controller
         $data = new TicketSale;
         $data->date = $request->date;
         $data->number = $request->number;
+        $data->price_per_unit = $request->price_per_unit;
         $data->amount = $request->amount;
         $data->created_by = Auth::user()->id;
         if ($data->save()) {
@@ -70,6 +76,11 @@ class TicketSaleController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        if(empty($request->price_per_unit)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Ticket Price \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         if(empty($request->number)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Number of ticket \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -79,6 +90,7 @@ class TicketSaleController extends Controller
         $data = TicketSale::find($request->codeid);
         $data->date = $request->date;
         $data->number = $request->number;
+        $data->price_per_unit = $request->price_per_unit;
         $data->amount = $request->amount;
         $data->updated_by = Auth::user()->id;
         if ($data->save()) {

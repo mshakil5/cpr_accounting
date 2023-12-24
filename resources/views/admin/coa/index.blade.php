@@ -25,46 +25,52 @@
             <!-- general form elements disabled -->
             <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title">Add new ticket sales</h3>
+                <h3 class="card-title">Add new admin</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <div class="ermsg"></div>
                 <form id="createThisForm">
                   @csrf
                   <input type="hidden" class="form-control" id="codeid" name="codeid">
-                  
-
                   <div class="row">
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label>Date</label>
-                        <input type="date" class="form-control" id="date" name="date" value="{{date('Y-m-d')}}">
+                        <label class="form-label" for="account_head">Account Head</label>
+                        <select name="account_head" id="account_head" class="form-control">
+                          <option value="">Select</option>
+                          <option value="Assets">Assets</option>
+                          <option value="Expenses">Expenses</option>
+                          <option value="Income">Income</option>
+                          <option value="Liabilities">Liabilities</option>
+                          <option value="Equity">Equity</option>
+                        </select>
                       </div>
                     </div>
-
                     <div class="col-sm-6">
                       <div class="form-group">
-                        <label>Number of ticket</label>
-                        <input type="number" class="form-control" id="number" name="number">
+                        <label>Sub Account Head</label>
+                        <select name="sub_account_head" id="sub_account_head" class="form-control">
+                          <option value="">Select</option>
+                        
+                        </select>
                       </div>
                     </div>
-
                   </div>
-                  
 
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-12">
                       <div class="form-group">
-                        <label>Price per ticket</label>
-                        <input type="number" class="form-control" id="price_per_unit" name="price_per_unit" value="50">
+                        <label>Account name</label>
+                        <input type="text" id="account_name" class="form-control" name="account_name" />
                       </div>
                     </div>
+                  </div>
 
-                    <div class="col-sm-6">
+                  <div class="row">
+                    <div class="col-sm-12">
                       <div class="form-group">
-                        <label>Amount</label>
-                        <input type="number" class="form-control" id="amount" name="amount" readonly>
+                        <label>Description</label>
+                        <input type="text" id="description" class="form-control" name="description" />
                       </div>
                     </div>
                   </div>
@@ -108,10 +114,10 @@
                 <thead>
                 <tr>
                   <th>Sl</th>
-                  <th>Date</th>
-                  <th>Number of Tickets</th>
-                  <th>Ticket Price </th>
-                  <th>Amount</th>
+                  <th>Account Head</th>
+                  <th>Sub Account Head</th>
+                  <th>Account Name</th>
+                  <th>Description</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -119,15 +125,14 @@
                   @foreach ($data as $key => $data)
                   <tr>
                     <td style="text-align: center">{{ $key + 1 }}</td>
-                    <td style="text-align: center">{{$data->date}}</td>
-                    <td style="text-align: center">{{$data->number}}</td>
-                    <td style="text-align: center">{{$data->price_per_unit}}</td>
-                    <td style="text-align: center">{{$data->amount}}</td>
+                    <td style="text-align: center">{{$data->account_head}}</td>
+                    <td style="text-align: center">{{$data->sub_account_head}}</td>
+                    <td style="text-align: center">{{$data->account_name}}</td>
+                    <td style="text-align: center">{{$data->description}}</td>
                     
                     <td style="text-align: center">
                       <a id="EditBtn" rid="{{$data->id}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
-                      {{-- <a id="deleteBtn" rid="{{$data->id}}"><svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/></svg> --}}
-                      </a>
+                      <a id="deleteBtn" rid="{{$data->id}}"><i class="fa fa-trash-o" style="color: red;font-size:16px;"></i></a>
                     </td>
                   </tr>
                   @endforeach
@@ -182,32 +187,62 @@
           $("#newBtn").show(100);
           clearform();
       });
+      $("#account_head").change(function(){
+          $(this).find("option:selected").each(function(){
+              var val = $(this).val();
+              if( val == "Assets"){
+                  clearfield();
+                  $("#sub_account_head").html("<option value=''>Please Select</option><option value='Current Asset'>Current Asset</option><option value='Fixed Asset'>Fixed Asset</option>");
 
-      //calculation end
-      $("#number, #price_per_unit").keyup(function(){
-          var amount = Number($("#price_per_unit").val());
-          var number = Number($("#number").val());
-          var tamount = amount * number;
-          $('#amount').val(tamount.toFixed(2));
-      });
-      //calculation end  
+              } else if(val == "Expenses"){
+
+                  clearfield();
+                  $("#sub_account_head").html("<option value=''>Please Select</option><option value='Cost Of Good Sold'>Cost Of Good Sold</option><option value='Overhead Expense'>Overhead Expense</option>");
+
+              }else if(val == "Income"){
+
+                  clearfield();
+                  $("#sub_account_head").html("<option value=''>Please Select</option><option value='Direct Income'>Direct Income</option><option value='Indirect Income'>Indirect Income</option>");
+
+              }else if(val == "Liabilities"){
+
+                  clearfield();
+                  $("#sub_account_head").html("<option value=''>Please Select</option><option value='Current Liabilities'>Current Liabilities</option><option value='Long Term Liabilities'>Long Term Liabilities</option>");
+
+              }else if(val == "Equity"){
+
+                  clearfield();
+                  $("#sub_account_head").html("<option value=''>Please Select</option><option value='Equity Capital'>Equity Capital</option><option value='Retained Earnings'>Retained Earnings</option>");
+
+              }else{
+                
+              }
+          });
+      }).change();
+
+
+            function clearfield(){
+                $('#income_description').val('');
+                $('#account_name').val('');
+            }
+
 
 
       //header for csrf-token is must in laravel
       $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
       //
-      var url = "{{URL::to('/admin/ticket-sale')}}";
-      var upurl = "{{URL::to('/admin/ticket-sale-update')}}";
+      var url = "{{URL::to('/admin/chart-of-account')}}";
+      var upurl = "{{URL::to('/admin/chart-of-account-update')}}";
       // console.log(url);
       $("#addBtn").click(function(){
       //   alert("#addBtn");
           if($(this).val() == 'Create') {
 
               var form_data = new FormData();
-              form_data.append("date", $("#date").val());
-              form_data.append("number", $("#number").val());
-              form_data.append("amount", $("#amount").val());
-              form_data.append("price_per_unit", $("#price_per_unit").val());
+              form_data.append("account_head", $("#account_head").val());
+              form_data.append("sub_account_head", $("#sub_account_head").val());
+              form_data.append("account_name", $("#account_name").val());
+              form_data.append("description", $("#description").val());
 
               $.ajax({
                 url: url,
@@ -219,7 +254,6 @@
                     if (d.status == 303) {
                         $(".ermsg").html(d.message);
                     }else if(d.status == 300){
-
                       $(function() {
                           var Toast = Swal.mixin({
                             toast: true,
@@ -243,14 +277,14 @@
           //create  end
           //Update
           if($(this).val() == 'Update'){
-            
+
               var form_data = new FormData();
-              form_data.append("date", $("#date").val());
-              form_data.append("number", $("#number").val());
-              form_data.append("amount", $("#amount").val());
-              form_data.append("price_per_unit", $("#price_per_unit").val());
+              form_data.append("account_head", $("#account_head").val());
+              form_data.append("sub_account_head", $("#sub_account_head").val());
+              form_data.append("account_name", $("#account_name").val());
+              form_data.append("description", $("#description").val());
               form_data.append("codeid", $("#codeid").val());
-              
+
               $.ajax({
                   url:upurl,
                   type: "POST",
@@ -299,39 +333,57 @@
           });
       });
       //Edit  end
+
+      
       //Delete
       $("#contentContainer").on('click','#deleteBtn', function(){
-            if(!confirm('Sure?')) return;
-            codeid = $(this).attr('rid');
-            info_url = url + '/'+codeid;
-            $.ajax({
-                url:info_url,
-                method: "GET",
-                type: "DELETE",
-                data:{
-                },
-                success: function(d){
-                    if(d.success) {
-                        alert(d.message);
-                        location.reload();
+                if(!confirm('Sure?')) return;
+                codeid = $(this).attr('rid');
+                info_url = url + '/'+codeid;
+                $.ajax({
+                    url:info_url,
+                    method: "GET",
+                    type: "DELETE",
+                    data:{
+                    },
+                    success: function(d){
+                        if(d.success) {
+                            alert(d.message);
+                            location.reload();
+                        }
+                    },
+                    error:function(d){
+                        console.log(d);
                     }
-                },
-                error:function(d){
-                    console.log(d);
-                }
+                });
             });
-        });
-        //Delete 
+            //Delete
+
+
       function populateForm(data){
-          $("#date").val(data.date);
-          $("#amount").val(data.amount);
-          $("#price_per_unit").val(data.price_per_unit);
-          $("#number").val(data.number);
+          $("#account_head").val(data.account_head);
+
+          if( data.account_head == "Assets"){
+                  $("#sub_account_head").html("<option value=''>Please Select</option><option value='Current Asset'>Current Asset</option><option value='Fixed Asset'>Fixed Asset</option>");
+              } else if(data.account_head == "Expenses"){
+                  $("#sub_account_head").html("<option value=''>Please Select</option><option value='Cost Of Good Sold'>Cost Of Good Sold</option><option value='Overhead Expense'>Overhead Expense</option>");
+              }else if(data.account_head == "Income"){
+                  $("#sub_account_head").html("<option value=''>Please Select</option><option value='Direct Income'>Direct Income</option><option value='Indirect Income'>Indirect Income</option>");
+              }else if(data.account_head == "Liabilities"){
+                  $("#sub_account_head").html("<option value=''>Please Select</option><option value='Current Liabilities'>Current Liabilities</option><option value='Long Term Liabilities'>Long Term Liabilities</option>");
+              }else if(data.account_head == "Equity"){
+                  $("#sub_account_head").html("<option value=''>Please Select</option><option value='Equity Capital'>Equity Capital</option><option value='Retained Earnings'>Retained Earnings</option>");
+              }else{
+                
+              }
+          $("#sub_account_head").val(data.sub_account_head);
+          $("#account_name").val(data.account_name);
+          $("#description").val(data.description);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');
-          $("#addBtn").html('Update');
           $("#addThisFormContainer").show(300);
           $("#newBtn").hide(100);
+          $("#newBtnSection").hide(100);
       }
       function clearform(){
           $('#createThisForm')[0].reset();

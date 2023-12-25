@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\RoomRentController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\Admin\ChartOfAccountController;
+use App\Http\Controllers\Admin\RestaurantExpencesController;
 
 
 /*------------------------------------------
@@ -84,6 +85,14 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/chart-of-account/{id}/edit', [ChartOfAccountController::class, 'edit']);
     Route::post('/chart-of-account-update', [ChartOfAccountController::class, 'update']);
     Route::get('/chart-of-account/{id}', [ChartOfAccountController::class, 'delete']);
+
+    
+    // restaurant-expense 
+    Route::get('/restaurant-expense', [RestaurantExpencesController::class, 'index'])->name('admin.restaurantExpense');
+    Route::post('/restaurant-expense', [RestaurantExpencesController::class, 'store']);
+    Route::get('/restaurant-expense/{id}/edit', [RestaurantExpencesController::class, 'edit'])->name('admin.salesEdit');
+    Route::post('/restaurant-expense-update', [RestaurantExpencesController::class, 'update']);
+    Route::get('/restaurant-expense/{id}', [RestaurantExpencesController::class, 'delete']);
 
 });
   

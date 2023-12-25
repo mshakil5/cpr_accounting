@@ -62,7 +62,7 @@
       </li>
 
       
-      <li class="nav-item {{ (request()->is('admin/product*')) ? 'menu-open' : '' }}{{ (request()->is('admin/sales*')) ? 'menu-open' : '' }}">
+      <li class="nav-item {{ (request()->is('admin/product*')) ? 'menu-open' : '' }}{{ (request()->is('admin/sales*')) ? 'menu-open' : '' }}{{ (request()->is('admin/restaurant-expense*')) ? 'menu-open' : '' }}">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-edit"></i>
           <p>
@@ -82,6 +82,14 @@
             <a href="{{route('admin.sales')}}" class="nav-link {{ (request()->is('admin/sales*')) ? 'active' : '' }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Sales</p>
+            </a>
+          </li>
+
+          
+          <li class="nav-item">
+            <a href="{{route('admin.restaurantExpense')}}" class="nav-link {{ (request()->is('admin/restaurant-expense*')) ? 'active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Restaurant Expense</p>
             </a>
           </li>
 

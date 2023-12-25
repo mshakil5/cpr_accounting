@@ -90,7 +90,7 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     // restaurant-expense 
     Route::get('/restaurant-expense', [RestaurantExpencesController::class, 'index'])->name('admin.restaurantExpense');
     Route::post('/restaurant-expense', [RestaurantExpencesController::class, 'store']);
-    Route::get('/restaurant-expense/{id}/edit', [RestaurantExpencesController::class, 'edit'])->name('admin.salesEdit');
+    Route::get('/restaurant-expense/{id}/edit', [RestaurantExpencesController::class, 'edit'])->name('admin.resExpEdit');
     Route::post('/restaurant-expense-update', [RestaurantExpencesController::class, 'update']);
     Route::get('/restaurant-expense/{id}', [RestaurantExpencesController::class, 'delete']);
 

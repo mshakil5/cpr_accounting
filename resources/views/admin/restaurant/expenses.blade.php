@@ -148,8 +148,9 @@
                   <th>Date</th>
                   <th>Invoice No</th>
                   <th>Description</th>
-                  <th>Discount</th>
-                  <th>Amount</th>
+                  <th>Price per unit</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -160,60 +161,13 @@
                     <td style="text-align: center">{{$data->date}}</td>
                     <td style="text-align: center">{{$data->invoiceno}}</td>
                     <td style="text-align: center">{{$data->description}}</td>
-                    <td style="text-align: center">{{$data->discount}}</td>
-                    <td style="text-align: center">{{$data->net_amount}}</td>
+                    <td style="text-align: center">{{$data->price_per_unit}}</td>
+                    <td style="text-align: center">{{$data->qty}}</td>
+                    <td style="text-align: center">{{$data->price}}</td>
                     
                     <td style="text-align: center">
 
-                      <a data-toggle="modal" data-target="#modal{{$data->id}}"><i class="fa fa-eye" style="color: #1ea948;font-size:16px;"></i></a>
-
-                      <a href="{{route('admin.salesEdit', $data->id)}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
-                      
-                    <div class="modal fade" id="modal{{$data->id}}">
-                      <div class="modal-dialog modal{{$data->id}}">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h4 class="modal-title">Product Details</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="container">
-  
-                              <table class="table table-hover">
-                                <thead>
-                                  <tr>
-                                    <th>Product Name</th>
-                                    <th>Price per unit</th>
-                                    <th>Quantity</th>
-                                    <th>Total</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  @foreach ($data->saledetail as $item)
-                                  <tr>
-                                    <td>{{$item->product->name}}</td>
-                                    <td>{{$item->price_per_unit}}</td>
-                                    <td>{{$item->qty}}</td>
-                                    <td>{{$item->price}}</td>
-                                  </tr>
-                                  @endforeach
-                                  
-                                </tbody>
-                              </table>
-  
-                            </div>
-                          </div>
-                          <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          </div>
-                        </div>
-                        <!-- /.modal-content -->
-                      </div>
-                      <!-- /.modal-dialog -->
-                    </div>
-
+                      <a href="{{route('admin.resExpEdit', $data->id)}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
                       
                     </td>
                   </tr>
@@ -395,7 +349,7 @@
       //header for csrf-token is must in laravel
       $.ajaxSetup({ headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') } });
       //
-      var url = "{{URL::to('/admin/sales')}}";
+      var url = "{{URL::to('/admin/restaurant-expense')}}";
       // console.log(url);
       $("body").delegate("#addBtn","click",function(event){
                 event.preventDefault();
@@ -405,7 +359,7 @@
             var date = $("#date").val();
             var description = $("#description").val();
 
-            var product_id = $("input[name='product_id[]']")
+            var productname = $("input[name='productname[]']")
               .map(function(){return $(this).val();}).get();
 
             var price_per_unit = $("input[name='price_per_unit[]']")
@@ -414,12 +368,12 @@
             var qty = $("input[name='qty[]']")
               .map(function(){return $(this).val();}).get();
               
-            // console.log(product_id, paymentmethod, comment);
+            // console.log(grand_total);
 
                 $.ajax({
                     url: url,
                     method: "POST",
-                    data: {product_id,price_per_unit,qty,grand_total,discount,date,description},
+                    data: {productname,price_per_unit,qty,grand_total,discount,date,description},
 
                     success: function (d) {
                         if (d.status == 303) {

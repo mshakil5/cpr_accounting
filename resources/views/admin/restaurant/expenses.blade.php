@@ -25,7 +25,7 @@
             <!-- general form elements disabled -->
             <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title">Add new food sales</h3>
+                <h3 class="card-title">Add new Restaurant Expense</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -296,44 +296,7 @@
 
       
 
-      var urlbr = "{{URL::to('/admin/getproduct')}}";
-      $("#product").change(function(){
-          event.preventDefault();
-              var accname = $(this).val();
-
-              var product_id = $("input[name='product_id[]']")
-                        .map(function(){return $(this).val();}).get();
-
-                        product_id.push(accname);
-                  seen = product_id.filter((s => v => s.has(v) || !s.add(v))(new Set));
-
-                  if (Array.isArray(seen) && seen.length) {
-                      return;
-                  }
-                  
-              $.ajax({
-              url: urlbr,
-              method: "POST",
-              data: {accname:accname},
-
-              success: function (d) {
-                
-                  if (d.status == 303) {
-
-                  }else if(d.status == 300){
-                          
-                      var markup = '<tr><td><input type="text" id="productname" name="productname[]" class="form-control" value="'+d.name+'"><input type="hidden" id="product_id" name="product_id[]" class="form-control" value="'+d.product_id+'"></td><td><input type="number" id="price_per_unit" name="price_per_unit[]" class="form-control price_per_unit" value="'+d.price+'"></td><td><input type="number" id="qty" name="qty[]" value="1" class="form-control qty"></td><td><input type="number" step="any" id="price" name="price[]" class="form-control total" value="'+d.price+'.00" readonly></td><td><div style="color: white;  user-select:none;  padding: 2px;    background: red;    width: 25px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td></tr>';
-
-                      $("table #inner ").append(markup);
-                      net_total();
-                  }
-              },
-              error: function (d) {
-                  console.log(d);
-              }
-          });
-
-      });
+      
 
       function net_total(){
         var discount = Number($("#discount").val());

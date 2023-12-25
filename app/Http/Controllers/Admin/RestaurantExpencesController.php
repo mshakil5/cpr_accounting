@@ -61,9 +61,8 @@ class RestaurantExpencesController extends Controller
 
     public function edit($id)
     {
-        $foods = Product::all();
-        $data = RestaurantExpense::with('saledetail')->where('id', $id)->first();
-        return view('admin.restaurant.foodsaleedit', compact('data','foods'));
+        $data = RestaurantExpense::where('id', $id)->first();
+        return view('admin.restaurant.expedit', compact('data'));
     }
 
     public function update(Request $request)

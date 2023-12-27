@@ -11,19 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('restaurant_expenses', function (Blueprint $table) {
+        Schema::create('restaurant_exp_details', function (Blueprint $table) {
             $table->id();
+            $table->string('invoiceno')->nullable();
+            $table->bigInteger('restaurant_expense_id')->unsigned()->nullable();
+            $table->foreign('restaurant_expense_id')->references('id')->on('restaurant_expenses')->onDelete('cascade');
             $table->bigInteger('supplier_id')->unsigned()->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
-            $table->string('invoiceno')->nullable();
-            $table->string('date')->nullable();
-            $table->string('description')->nullable();
-            $table->double('vat_amount',10,2)->nullable();
-            $table->double('discount',10,2)->nullable();
-            $table->double('due_amount',10,2)->nullable();
-            $table->double('paid_amount',10,2)->nullable();
-            $table->double('net_amount',10,2)->nullable();
-            $table->boolean('status')->default(1);
+            $table->string('productname')->nullable();
+            $table->string('qty')->nullable();
+            $table->double('price_per_unit',10,2)->default(0);
+            $table->double('price',10,2)->default(0);
+            $table->string('status')->default(1);
             $table->string('updated_by')->nullable();
             $table->string('created_by')->nullable();
             $table->timestamps();
@@ -35,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('restaurant_expenses');
+        Schema::dropIfExists('restaurant_exp_details');
     }
 };

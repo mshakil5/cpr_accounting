@@ -33,6 +33,22 @@
                 <form id="createThisForm">
                   @csrf
                   <input type="hidden" class="form-control" id="codeid" name="codeid">
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Supplier</label>
+                        <select name="supplier_id" id="supplier_id" class="form-control">
+                          <option value="">Select</option>
+                          @foreach (\App\Models\Supplier::all() as $supplier)
+                            <option value="{{$supplier->id}}">{{$supplier->name}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+                    
+                  </div>  
+
                   <div class="row">
                     <div class="col-sm-6">
                       <div class="form-group">
@@ -89,6 +105,22 @@
                             <td></td>
                             <td>Discount</td>
                             <td><input type="number" id="discount" name="discount" class="form-control"></td>
+                            <td></td>
+                          </tr>
+                          
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Due Amount</td>
+                            <td><input type="number" id="due_amount" name="due_amount" class="form-control" readonly></td>
+                            <td></td>
+                          </tr>
+                          
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Paid Amount</td>
+                            <td><input type="number" id="paid_amount" name="paid_amount" class="form-control"></td>
                             <td></td>
                           </tr>
                           <tr>
@@ -230,12 +262,15 @@
 
       function net_total(){
         var discount = Number($("#discount").val());
+        var paid_amount = Number($("#paid_amount").val());
         var total_amount=0;
         $('.total').each(function(){
           total_amount += ($(this).val()-0);
         })
         var grand_total = total_amount - discount;
+        var due_amount = total_amount - paid_amount;
         $('#grand_total').val(grand_total.toFixed(2));
+        $('#due_amount').val(due_amount.toFixed(2));
       }
 
 
@@ -254,14 +289,17 @@
       });
 
       //calculation end
-      $("#discount").keyup(function(){
+      $("#discount, #paid_amount").keyup(function(){
           var discount = Number($("#discount").val());
+          var paid_amount = Number($("#paid_amount").val());
           var total_amount=0;
               $('.total').each(function(){
                 total_amount += ($(this).val()-0);
               })
           var tamount = total_amount - discount;
+          var due_amount = total_amount - paid_amount - discount;
           $('#grand_total').val(tamount.toFixed(2));
+        $('#due_amount').val(due_amount.toFixed(2));
       });
       //calculation end  
 
@@ -290,6 +328,7 @@
             
             $('#discount').val('');
             $('#grand_total').val(grand_total.toFixed(2));
+            $('#due_amount').val(grand_total.toFixed(2));
             net_total();          
       });
         //Change Quantity end here
@@ -300,12 +339,15 @@
 
       function net_total(){
         var discount = Number($("#discount").val());
+        var paid_amount = Number($("#paid_amount").val());
         var total_amount=0;
         $('.total').each(function(){
           total_amount += ($(this).val()-0);
         })
         var grand_total = total_amount - discount;
+        var due_amount = total_amount - paid_amount;
         $('#grand_total').val(grand_total.toFixed(2));
+        $('#due_amount').val(due_amount.toFixed(2));
       }
 
 
@@ -318,6 +360,8 @@
                 event.preventDefault();
 
             var grand_total = $("#grand_total").val();
+            var paid_amount = Number($("#paid_amount").val());
+            var due_amount = Number($("#due_amount").val());
             var discount = $("#discount").val();
             var date = $("#date").val();
             var description = $("#description").val();
@@ -336,7 +380,7 @@
                 $.ajax({
                     url: url,
                     method: "POST",
-                    data: {productname,price_per_unit,qty,grand_total,discount,date,description},
+                    data: {productname,price_per_unit,qty,grand_total,discount,date,description,due_amount,paid_amount},
 
                     success: function (d) {
                         if (d.status == 303) {

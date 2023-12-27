@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\User;
-use App\Models\SaleDetail;
+use App\Models\RestaurantExpDetail;
 use App\Models\RestaurantExpense;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,26 +35,39 @@ class RestaurantExpencesController extends Controller
             exit();
         }
 
-        $invoiceId = date('Ymd-his');
+        // new code
+        $order = new RestaurantExpense();
+        $order->invoiceno = date('Ymd-his');
+        $order->date = $request->date;
+        $order->description = $request->description;
+        $order->discount = $request->discount;
+        $order->grand_amount = $request->grand_amount + $request->discount;
+        $order->net_amount = $request->grand_amount;
+        $order->created_by = Auth::user()->id;
+        if($order->save()){
+            $tamount = 0;
+            foreach($request->input('productname') as $key => $value)
+            {
+                $orderDtl = new RestaurantExpDetail();
+                $orderDtl->invoiceno = $order->invoiceno;
+                $orderDtl->restaurant_expense_id = $order->id;
+                $orderDtl->productname = $request->get('productname')[$key];
+                $orderDtl->qty = $request->get('qty')[$key];
+                $orderDtl->price_per_unit = $request->get('price_per_unit')[$key];
+                $orderDtl->price = $request->get('qty')[$key] * $request->get('price_per_unit')[$key];
+                $orderDtl->created_by = Auth::user()->id;
+                $orderDtl->save();
+                $tamount = $orderDtl->price + $tamount;
+            }
 
-        $tamount = 0;
-        foreach($request->input('productname') as $key => $value)
-        {
-            $data = new RestaurantExpense();
-            $data->invoiceno = $invoiceId;
-            $data->description = $request->description;
-            $data->date = $request->date;
-            $data->productname = $request->get('productname')[$key];
-            $data->qty = $request->get('qty')[$key];
-            $data->price_per_unit = $request->get('price_per_unit')[$key];
-            $data->price = $request->get('qty')[$key] * $request->get('price_per_unit')[$key];
-            $data->created_by = Auth::user()->id;
-            $data->save();
-            $tamount = $data->price + $tamount;
+            $order->grand_amount = $tamount;
+            $order->paid_amount = $request->paid_amount;
+            $order->due_amount = $tamount - $request->paid_amount;
+            $order->net_amount = $tamount - $request->discount;
+            $order->save();
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Thank you for this order.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message,'id'=>$order->id]);
         }
-
-        $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Expense create successfully..</b></div>";
-        return response()->json(['status'=> 300,'message'=>$message]);
         
 
     }

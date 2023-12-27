@@ -61,6 +61,26 @@
         </a>
       </li>
 
+      <li class="nav-item {{ (request()->is('admin/employee*')) ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-edit"></i>
+          <p>
+            Employee
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+
+          <li class="nav-item">
+            <a href="{{route('admin.employee')}}" class="nav-link {{ (request()->is('admin/employee*')) ? 'active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Employee Details</p>
+            </a>
+          </li>
+
+        </ul>
+      </li>
+
       
       <li class="nav-item {{ (request()->is('admin/product*')) ? 'menu-open' : '' }}{{ (request()->is('admin/sales*')) ? 'menu-open' : '' }}{{ (request()->is('admin/restaurant-expense*')) ? 'menu-open' : '' }}">
         <a href="#" class="nav-link">

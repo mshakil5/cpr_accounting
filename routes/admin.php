@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\Admin\ChartOfAccountController;
 use App\Http\Controllers\Admin\RestaurantExpencesController;
 use App\Http\Controllers\Admin\SupplierController;
+use App\Http\Controllers\Admin\EmployeeController;
 
 
 /*------------------------------------------
@@ -93,6 +94,14 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/supplier/{id}/edit', [SupplierController::class, 'edit']);
     Route::post('/supplier-update', [SupplierController::class, 'update']);
     Route::get('/supplier/{id}', [SupplierController::class, 'delete']);
+
+    
+    // employee 
+    Route::get('/employee', [EmployeeController::class, 'index'])->name('admin.employee');
+    Route::post('/employee', [EmployeeController::class, 'store']);
+    Route::get('/employee/{id}/edit', [EmployeeController::class, 'edit']);
+    Route::post('/employee-update', [EmployeeController::class, 'update']);
+    Route::get('/employee/{id}', [EmployeeController::class, 'delete']);
 
     
     // restaurant-expense 

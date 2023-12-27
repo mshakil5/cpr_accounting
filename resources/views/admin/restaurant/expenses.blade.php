@@ -91,7 +91,7 @@
                               <input type="number" id="qty" name="qty[]" value="1" class="form-control qty">
                             </td>
                             <td>
-                              <input type="number" step="any" id="price" name="price[]" class="form-control total" value="">
+                              <input type="number" step="any" id="price" name="price[]" class="form-control total" value="" readonly>
                             </td>
                             <td>
                               <div style="color: rgb(255, 255, 255);  user-select:none;  padding: 2px;    background: rgb(5, 198, 46);    width: 25px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;"  id="addrow">+</div>
@@ -294,7 +294,7 @@
 
       $("#addrow").click(function() {
 
-      var pmarkup = '<tr><td><input type="text" id="productname" name="productname[]" class="form-control" value=""></td><td><input type="number" id="price_per_unit" name="price_per_unit[]" class="form-control price_per_unit" value=""></td><td><input type="number" id="qty" name="qty[]" value="1" class="form-control qty"></td><td><input type="number" step="any" id="price" name="price[]" class="form-control total" value=""></td><td><div style="color: white;  user-select:none;  padding: 2px;    background: red;    width: 25px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td></tr>';
+      var pmarkup = '<tr><td><input type="text" id="productname" name="productname[]" class="form-control" value=""></td><td><input type="number" id="price_per_unit" name="price_per_unit[]" class="form-control price_per_unit" value=""></td><td><input type="number" id="qty" name="qty[]" value="1" class="form-control qty"></td><td><input type="number" step="any" id="price" name="price[]" class="form-control total" value="" readonly></td><td><div style="color: white;  user-select:none;  padding: 2px;    background: red;    width: 25px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td></tr>';
       $("div #inner ").append(pmarkup);
 
       });
@@ -445,29 +445,8 @@
                 });
         });
       
-      //Delete
-      $("#contentContainer").on('click','#deleteBtn', function(){
-            if(!confirm('Sure?')) return;
-            codeid = $(this).attr('rid');
-            info_url = url + '/'+codeid;
-            $.ajax({
-                url:info_url,
-                method: "GET",
-                type: "DELETE",
-                data:{
-                },
-                success: function(d){
-                    if(d.success) {
-                        alert(d.message);
-                        location.reload();
-                    }
-                },
-                error:function(d){
-                    console.log(d);
-                }
-            });
-        });
-        //Delete 
+      
+        
 
       function clearform(){
           $('#createThisForm')[0].reset();

@@ -3,8 +3,6 @@
 @section('content')
 
 
-
-
     <!-- Main content -->
     <section class="content" id="addThisFormContainer">
       <div class="container-fluid">
@@ -14,14 +12,30 @@
             <!-- general form elements disabled -->
             <div class="card card-secondary">
               <div class="card-header">
-                <h3 class="card-title">Expense Edit</h3>
+                <h3 class="card-title">Restaurant Expense Update</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
                 <div class="ermsg"></div>
                 <form id="createThisForm">
                   @csrf
-                  <input type="hidden" class="form-control" id="codeid" name="codeid">
+                  <input type="hidden" class="form-control" id="codeid" name="codeid"  value="{{$data->id}}">
+
+                  <div class="row">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Supplier</label>
+                        <select name="supplier_id" id="supplier_id" class="form-control">
+                          <option value="">Select</option>
+                          @foreach (\App\Models\Supplier::all() as $supplier)
+                            <option value="{{$supplier->id}}" @if ($data->supplier_id == $supplier->id) Selected @endif>{{$supplier->name}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+                    
+                  </div>  
+
                   <div class="row">
                     <div class="col-sm-6">
                       <div class="form-group">
@@ -35,8 +49,7 @@
                         <input type="text" class="form-control" id="description" name="description" value="{{$data->description}}">
                       </div>
                     </div>
-                  </div>
-                  
+                  </div>                  
 
                   <div class="row">
                     <div class="col-sm-12">
@@ -48,25 +61,67 @@
                             <th>Price per unit</th>
                             <th>Quantity</th>
                             <th>Total</th>
+                            <th>Action</th>
                           </tr>
                         </thead>
                         <tbody id="inner">
+
+                          @foreach ($data->expdetail as $item)
                           <tr>
                             <td>
-                              <input type="text" id="productname" name="productname" class="form-control" value="{{$data->productname}}">
+                              <input type="text" id="productname" name="productname[]" class="form-control" value="{{$item->productname}}">
+                              <input type="text" id="exp_dtl_id" name="exp_dtl_id[]" class="form-control" value="{{$item->id}}" hidden>
                             </td>
                             <td>
-                              <input type="number" id="price_per_unit" name="price_per_unit" class="form-control price_per_unit" value="{{$data->price_per_unit}}">
+                              <input type="number" id="price_per_unit" name="price_per_unit[]" class="form-control price_per_unit" value="{{$item->price_per_unit}}">
                             </td>
                             <td>
-                              <input type="number" id="qty" name="qty" value="{{$data->qty}}" class="form-control qty">
+                              <input type="number" id="qty" name="qty[]" value="{{$item->qty}}" class="form-control qty">
                             </td>
                             <td>
-                              <input type="number" step="any" id="price" name="price" class="form-control total" value="{{$data->price}}" readonly>
+                              <input type="number" step="any" id="price" name="price[]" class="form-control total" value="{{$item->price}}" readonly>
+                            </td>
+                            <td>
+                              
                             </td>
                           </tr>
+                          @endforeach
+
+
+                          
+
                         </tbody>
                         <tfoot>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Discount</td>
+                            <td><input type="number" id="discount" name="discount" value="{{$data->discount}}" class="form-control"></td>
+                            <td></td>
+                          </tr>
+                          
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Due Amount</td>
+                            <td><input type="number" id="due_amount" name="due_amount" value="{{$data->due_amount}}" class="form-control" readonly></td>
+                            <td></td>
+                          </tr>
+                          
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Paid Amount</td>
+                            <td><input type="number" id="paid_amount" name="paid_amount" value="{{$data->paid_amount}}" class="form-control"></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td></td>
+                            <td></td>
+                            <td>Total Amount</td>
+                            <td><input type="number" id="grand_total" name="grand_total" value="{{$data->net_amount}}" class="form-control" readonly></td>
+                            <td></td>
+                          </tr>
                         </tfoot>
                       </table>
                       
@@ -82,8 +137,8 @@
               
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" id="addBtn" class="btn btn-secondary" value="Update">Update</button>
-                <a href="{{route('admin.restaurantExpense')}}" class="btn btn-default">Cancel</a>
+                <button type="submit" id="addBtn" class="btn btn-secondary" value="Create">Update</button>
+                <button type="submit" id="FormCloseBtn" class="btn btn-default">Cancel</button>
               </div>
               <!-- /.card-footer -->
               <!-- /.card-body -->
@@ -96,36 +151,53 @@
     </section>
     <!-- /.content -->
 
-
-
-
-
 @endsection
 @section('script')
-<script>
-    $(function () {
-      $("#example1").DataTable({
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-  </script>
 
 <script>
+
+      $("#addrow").click(function() {
+
+      var pmarkup = '<tr><td><input type="text" id="productname" name="productname[]" class="form-control" value=""></td><td><input type="number" id="price_per_unit" name="price_per_unit[]" class="form-control price_per_unit" value=""></td><td><input type="number" id="qty" name="qty[]" value="1" class="form-control qty"></td><td><input type="number" step="any" id="price" name="price[]" class="form-control total" value=""></td><td><div style="color: white;  user-select:none;  padding: 2px;    background: red;    width: 25px;    display: flex;    align-items: center; margin-right:5px;   justify-content: center;    border-radius: 4px;   left: 4px;    top: 81px;" onclick="removeRow(event)" >X</div></td></tr>';
+      $("div #inner ").append(pmarkup);
+
+      });
+
+      function removeRow(event) {
+          event.target.parentElement.parentElement.remove();
+          net_total();   
+      }
+
+      function net_total(){
+        var discount = Number($("#discount").val());
+        var paid_amount = Number($("#paid_amount").val());
+        var total_amount=0;
+        $('.total').each(function(){
+          total_amount += ($(this).val()-0);
+        })
+        var grand_total = total_amount - discount;
+        var due_amount = total_amount - paid_amount;
+        $('#grand_total').val(grand_total.toFixed(2));
+        $('#due_amount').val(due_amount.toFixed(2));
+      }
 
 
   $(document).ready(function () {
-
- 
+      
+      //calculation end
+      $("#discount, #paid_amount").keyup(function(){
+          var discount = Number($("#discount").val());
+          var paid_amount = Number($("#paid_amount").val());
+          var total_amount=0;
+              $('.total').each(function(){
+                total_amount += ($(this).val()-0);
+              })
+          var tamount = total_amount - discount;
+          var due_amount = total_amount - paid_amount - discount;
+          $('#grand_total').val(tamount.toFixed(2));
+        $('#due_amount').val(due_amount.toFixed(2));
+      });
+      //calculation end  
 
       // change quantity start  
       $("body").delegate(".price_per_unit,.total,.qty","keyup",function(event){
@@ -152,6 +224,7 @@
             
             $('#discount').val('');
             $('#grand_total').val(grand_total.toFixed(2));
+            $('#due_amount').val(grand_total.toFixed(2));
             net_total();          
       });
         //Change Quantity end here
@@ -162,12 +235,15 @@
 
       function net_total(){
         var discount = Number($("#discount").val());
+        var paid_amount = Number($("#paid_amount").val());
         var total_amount=0;
         $('.total').each(function(){
           total_amount += ($(this).val()-0);
         })
         var grand_total = total_amount - discount;
+        var due_amount = total_amount - paid_amount;
         $('#grand_total').val(grand_total.toFixed(2));
+        $('#due_amount').val(due_amount.toFixed(2));
       }
 
 
@@ -179,22 +255,34 @@
       $("body").delegate("#addBtn","click",function(event){
                 event.preventDefault();
 
-            var price = $("#price").val();
-            var qty = $("#qty").val();
-            var price_per_unit = $("#price_per_unit").val();
+            var supplier_id = $("#supplier_id").val();
+            var grand_total = $("#grand_total").val();
+            var paid_amount = Number($("#paid_amount").val());
+            var due_amount = Number($("#due_amount").val());
+            var discount = $("#discount").val();
             var date = $("#date").val();
             var description = $("#description").val();
-            var productname = $("#productname").val();
+            var codeid = $("#codeid").val();
 
+            var productname = $("input[name='productname[]']")
+              .map(function(){return $(this).val();}).get();
 
+            var price_per_unit = $("input[name='price_per_unit[]']")
+            .map(function(){return $(this).val();}).get();
+
+            var qty = $("input[name='qty[]']")
+              .map(function(){return $(this).val();}).get();
 
               
-            // console.log(product_id, paymentmethod, comment);
+            var exp_dtl_id = $("input[name='exp_dtl_id[]']")
+              .map(function(){return $(this).val();}).get();
+              
+            // console.log(grand_total);
 
                 $.ajax({
                     url: url,
                     method: "POST",
-                    data: {productname,price_per_unit,qty,date,description,price},
+                    data: {productname,price_per_unit,qty,grand_total,discount,date,description,due_amount,paid_amount,supplier_id,exp_dtl_id,codeid},
 
                     success: function (d) {
                         if (d.status == 303) {
@@ -214,29 +302,7 @@
                 });
         });
       
-      //Delete
-      $("#contentContainer").on('click','#deleteBtn', function(){
-            if(!confirm('Sure?')) return;
-            codeid = $(this).attr('rid');
-            info_url = url + '/'+codeid;
-            $.ajax({
-                url:info_url,
-                method: "GET",
-                type: "DELETE",
-                data:{
-                },
-                success: function(d){
-                    if(d.success) {
-                        alert(d.message);
-                        location.reload();
-                    }
-                },
-                error:function(d){
-                    console.log(d);
-                }
-            });
-        });
-        //Delete 
+      
 
       function clearform(){
           $('#createThisForm')[0].reset();

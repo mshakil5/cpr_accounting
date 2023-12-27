@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('employee_id')->unsigned();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
-            $table->dateTime('start_datetime',0)->nullable();
-            $table->dateTime('end_datetime',0)->nullable();
-            $table->longText('history_desc', 200)->nullable();
+            $table->string('start_datetime')->nullable();
+            $table->string('end_datetime')->nullable();
+            $table->double('salary', 10,2)->nullable();
+            $table->longText('history_desc')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('created_by')->nullable();
             $table->timestamps();

@@ -61,7 +61,7 @@
         </a>
       </li>
 
-      <li class="nav-item {{ (request()->is('admin/employee*')) ? 'menu-open' : '' }}">
+      <li class="nav-item {{ (request()->is('admin/employee*')) ? 'menu-open' : '' }}{{ (request()->is('admin/employeehistory*')) ? 'menu-open' : '' }}">
         <a href="#" class="nav-link">
           <i class="nav-icon fas fa-edit"></i>
           <p>
@@ -72,9 +72,16 @@
         <ul class="nav nav-treeview">
 
           <li class="nav-item">
-            <a href="{{route('admin.employee')}}" class="nav-link {{ (request()->is('admin/employee*')) ? 'active' : '' }}">
+            <a href="{{route('admin.employee')}}" class="nav-link {{ (request()->is('admin/employee')) ? 'active' : '' }}">
               <i class="far fa-circle nav-icon"></i>
               <p>Employee Details</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('admin.employeehistory')}}" class="nav-link {{ (request()->is('admin/employee-history*')) ? 'active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Employee History</p>
             </a>
           </li>
 

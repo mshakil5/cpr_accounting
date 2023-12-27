@@ -104,6 +104,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/employee/{id}', [EmployeeController::class, 'delete']);
 
     
+    Route::get('/employee-history', [EmployeeController::class, 'history'])->name('admin.employeehistory');
+    Route::post('/employee-history', [EmployeeController::class, 'historystore']);
+    Route::get('/employee-history/{id}/edit', [EmployeeController::class, 'historyedit']);
+    Route::post('/employee-history-update', [EmployeeController::class, 'historyupdate']);
+    Route::get('/employee-history/{id}', [EmployeeController::class, 'historydelete']);
+
+    
     // restaurant-expense 
     Route::get('/restaurant-expense', [RestaurantExpencesController::class, 'index'])->name('admin.restaurantExpense');
     Route::post('/restaurant-expense', [RestaurantExpencesController::class, 'store']);

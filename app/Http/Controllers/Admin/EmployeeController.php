@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Employee;
+use App\Models\EmployeeHistory;
 use Illuminate\Support\Facades\Auth;
 
 class EmployeeController extends Controller
@@ -84,6 +85,103 @@ class EmployeeController extends Controller
     {
 
         if(Employee::destroy($id)){
+            return response()->json(['success'=>true,'message'=>'Data has been deleted successfully']);
+        }else{
+            return response()->json(['success'=>false,'message'=>'Delete Failed']);
+        }
+    }
+
+    public function history()
+    {
+        $data = EmployeeHistory::orderby('id','DESC')->get();
+        return view('admin.employee.history', compact('data'));
+    }
+
+    public function historystore(Request $request)
+    {
+        if(empty($request->employee_id)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Employee \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+        if(empty($request->salary)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Salary \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->start_datetime)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Start Date \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        $data = new EmployeeHistory;
+        $data->employee_id = $request->employee_id;
+        $data->salary = $request->salary;
+        $data->start_datetime = $request->start_datetime;
+        $data->end_datetime = $request->end_datetime;
+        $data->history_desc = $request->history_desc;
+        $data->created_by = Auth::user()->id;
+        if ($data->save()) {
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        }
+    }
+
+    public function historyedit($id)
+    {
+        $where = [
+            'id'=>$id
+        ];
+        $info = EmployeeHistory::where($where)->get()->first();
+        return response()->json($info);
+    }
+
+    public function historyupdate(Request $request)
+    {
+
+        
+        if(empty($request->employee_id)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Employee \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+        if(empty($request->salary)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Salary \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+        if(empty($request->start_datetime)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Start Date \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+        $data = EmployeeHistory::find($request->codeid);
+        $data->employee_id = $request->employee_id;
+        $data->salary = $request->salary;
+        $data->start_datetime = $request->start_datetime;
+        $data->end_datetime = $request->end_datetime;
+        $data->history_desc = $request->history_desc;
+        $data->updated_by = Auth::user()->id;
+        if ($data->save()) {
+            $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
+            return response()->json(['status'=> 300,'message'=>$message]);
+        }
+        else{
+            return response()->json(['status'=> 303,'message'=>'Server Error!!']);
+        } 
+    }
+
+    public function historydelete($id)
+    {
+
+        if(EmployeeHistory::destroy($id)){
             return response()->json(['success'=>true,'message'=>'Data has been deleted successfully']);
         }else{
             return response()->json(['success'=>false,'message'=>'Delete Failed']);

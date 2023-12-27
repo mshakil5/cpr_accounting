@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Employee extends Model
 {
     use HasFactory;
+
+    public function employeehistory(){
+        return $this->hasMany('App\Models\EmployeeHistory');
+    }
 }

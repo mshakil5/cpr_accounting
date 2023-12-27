@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SalesController;
 use App\Http\Controllers\Admin\ChartOfAccountController;
 use App\Http\Controllers\Admin\RestaurantExpencesController;
+use App\Http\Controllers\Admin\SupplierController;
 
 
 /*------------------------------------------
@@ -85,6 +86,13 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/chart-of-account/{id}/edit', [ChartOfAccountController::class, 'edit']);
     Route::post('/chart-of-account-update', [ChartOfAccountController::class, 'update']);
     Route::get('/chart-of-account/{id}', [ChartOfAccountController::class, 'delete']);
+
+    // supplier 
+    Route::get('/supplier', [SupplierController::class, 'index'])->name('admin.supplier');
+    Route::post('/supplier', [SupplierController::class, 'store']);
+    Route::get('/supplier/{id}/edit', [SupplierController::class, 'edit']);
+    Route::post('/supplier-update', [SupplierController::class, 'update']);
+    Route::get('/supplier/{id}', [SupplierController::class, 'delete']);
 
     
     // restaurant-expense 

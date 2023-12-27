@@ -37,10 +37,10 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="{{route('admin.client')}}" class="nav-link {{ (request()->is('admin/client*')) ? 'active' : '' }}">
+        <a href="{{route('admin.supplier')}}" class="nav-link {{ (request()->is('admin/supplier*')) ? 'active' : '' }}">
           <i class="nav-icon fas fa-th"></i>
           <p>
-            Clients
+            Supplier
           </p>
         </a>
       </li>

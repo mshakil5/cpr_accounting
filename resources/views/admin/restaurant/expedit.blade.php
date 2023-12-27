@@ -2,6 +2,17 @@
 
 @section('content')
 
+<!-- Main content -->
+<section class="content" id="newBtnSection">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-2">
+          <a href="{{route('admin.restaurantExpense')}}" class="btn btn-secondary my-3" id="newBtn">Back</a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- /.content -->
 
     <!-- Main content -->
     <section class="content" id="addThisFormContainer">

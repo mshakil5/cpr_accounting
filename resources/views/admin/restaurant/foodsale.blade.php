@@ -215,10 +215,6 @@
                     </td>
                   </tr>
 
-                  
-
-
-
                   @endforeach
                 
                 </tbody>

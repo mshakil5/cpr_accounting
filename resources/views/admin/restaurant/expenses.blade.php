@@ -180,9 +180,9 @@
                   <th>Date</th>
                   <th>Invoice No</th>
                   <th>Description</th>
-                  <th>Price per unit</th>
-                  <th>Quantity</th>
-                  <th>Total</th>
+                  <th>Discount</th>
+                  <th>Due Amount</th>
+                  <th>Amount</th>
                   <th>Action</th>
                 </tr>
                 </thead>
@@ -193,20 +193,64 @@
                     <td style="text-align: center">{{$data->date}}</td>
                     <td style="text-align: center">{{$data->invoiceno}}</td>
                     <td style="text-align: center">{{$data->description}}</td>
-                    <td style="text-align: center">{{$data->price_per_unit}}</td>
-                    <td style="text-align: center">{{$data->qty}}</td>
-                    <td style="text-align: center">{{$data->price}}</td>
+                    <td style="text-align: center">{{$data->discount}}</td>
+                    <td style="text-align: center">{{$data->due_amount}}</td>
+                    <td style="text-align: center">{{$data->net_amount}}</td>
                     
                     <td style="text-align: center">
 
+                      <a data-toggle="modal" data-target="#modal{{$data->id}}"><i class="fa fa-eye" style="color: #1ea948;font-size:16px;"></i></a>
+
                       <a href="{{route('admin.resExpEdit', $data->id)}}"><i class="fa fa-edit" style="color: #2196f3;font-size:16px;"></i></a>
+                      
+                    <div class="modal fade" id="modal{{$data->id}}">
+                      <div class="modal-dialog modal{{$data->id}}">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h4 class="modal-title">Product Details</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div class="container">
+  
+                              <table class="table table-hover">
+                                <thead>
+                                  <tr>
+                                    <th>Product Name</th>
+                                    <th>Price per unit</th>
+                                    <th>Quantity</th>
+                                    <th>Total</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  @foreach ($data->expdetail as $item)
+                                  <tr>
+                                    <td>{{$item->productname}}</td>
+                                    <td>{{$item->price_per_unit}}</td>
+                                    <td>{{$item->qty}}</td>
+                                    <td>{{$item->price}}</td>
+                                  </tr>
+                                  @endforeach
+                                  
+                                </tbody>
+                              </table>
+  
+                            </div>
+                          </div>
+                          <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                        <!-- /.modal-content -->
+                      </div>
+                      <!-- /.modal-dialog -->
+                    </div>
+
                       
                     </td>
                   </tr>
-
-                  
-
-
 
                   @endforeach
                 
@@ -359,6 +403,7 @@
       $("body").delegate("#addBtn","click",function(event){
                 event.preventDefault();
 
+            var supplier_id = $("#supplier_id").val();
             var grand_total = $("#grand_total").val();
             var paid_amount = Number($("#paid_amount").val());
             var due_amount = Number($("#due_amount").val());
@@ -380,7 +425,7 @@
                 $.ajax({
                     url: url,
                     method: "POST",
-                    data: {productname,price_per_unit,qty,grand_total,discount,date,description,due_amount,paid_amount},
+                    data: {productname,price_per_unit,qty,grand_total,discount,date,description,due_amount,paid_amount,supplier_id},
 
                     success: function (d) {
                         if (d.status == 303) {

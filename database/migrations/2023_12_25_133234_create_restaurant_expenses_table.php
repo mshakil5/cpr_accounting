@@ -22,6 +22,7 @@ return new class extends Migration
             $table->double('discount',10,2)->nullable();
             $table->double('due_amount',10,2)->nullable();
             $table->double('paid_amount',10,2)->nullable();
+            $table->double('grand_amount',10,2)->nullable();
             $table->double('net_amount',10,2)->nullable();
             $table->boolean('status')->default(1);
             $table->string('updated_by')->nullable();

@@ -8,13 +8,14 @@ use App\Models\Product;
 use App\Models\User;
 use App\Models\RestaurantExpDetail;
 use App\Models\RestaurantExpense;
+use App\Models\Supplier;
 use Illuminate\Support\Facades\Auth;
 
 class RestaurantExpencesController extends Controller
 {
     public function index()
     {
-        $data = RestaurantExpense::orderby('id','DESC')->get();
+        $data = RestaurantExpense::with('expdetail')->orderby('id','DESC')->get();
         return view('admin.restaurant.expenses', compact('data'));
     }
 
@@ -35,10 +36,19 @@ class RestaurantExpencesController extends Controller
             exit();
         }
 
+        if(empty($request->supplier_id)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please Select a \"Supplier\" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
+        
+
         // new code
         $order = new RestaurantExpense();
         $order->invoiceno = date('Ymd-his');
         $order->date = $request->date;
+        $order->supplier_id = $request->supplier_id;
         $order->description = $request->description;
         $order->discount = $request->discount;
         $order->grand_amount = $request->grand_amount + $request->discount;
@@ -65,6 +75,13 @@ class RestaurantExpencesController extends Controller
             $order->due_amount = $tamount - $request->paid_amount;
             $order->net_amount = $tamount - $request->discount;
             $order->save();
+
+            
+            $supplier = Supplier::find($request->supplier_id);
+            $supplier->due_amount = $supplier->due_amount + $request->due_amount;
+            $supplier->total_purchase = $supplier->total_purchase + $order->net_amount;
+            $supplier->save();
+
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Thank you for this order.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message,'id'=>$order->id]);
         }

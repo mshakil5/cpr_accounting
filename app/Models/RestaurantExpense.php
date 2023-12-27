@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class RestaurantExpense extends Model
 {
     use HasFactory;
+
+    public function expdetail(){
+        return $this->hasMany('App\Models\RestaurantExpDetail');
+    }
 }

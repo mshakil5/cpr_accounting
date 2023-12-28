@@ -88,6 +88,33 @@
         </ul>
       </li>
 
+      <li class="nav-item {{ (request()->is('admin/transaction*')) ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link">
+          <i class="nav-icon fas fa-edit"></i>
+          <p>
+            Transaction
+            <i class="fas fa-angle-left right"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview">
+
+          <li class="nav-item">
+            <a href="{{route('admin.expense')}}" class="nav-link {{ (request()->is('admin/transaction-expense')) ? 'active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Expense</p>
+            </a>
+          </li>
+
+          {{-- <li class="nav-item">
+            <a href="{{route('admin.employeehistory')}}" class="nav-link {{ (request()->is('admin/employee-history*')) ? 'active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Employee History</p>
+            </a>
+          </li> --}}
+
+        </ul>
+      </li>
+
       
       <li class="nav-item {{ (request()->is('admin/product*')) ? 'menu-open' : '' }}{{ (request()->is('admin/sales*')) ? 'menu-open' : '' }}{{ (request()->is('admin/restaurant-expense*')) ? 'menu-open' : '' }}">
         <a href="#" class="nav-link">

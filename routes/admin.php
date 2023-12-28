@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ChartOfAccountController;
 use App\Http\Controllers\Admin\RestaurantExpencesController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\TransactionController;
 
 
 /*------------------------------------------
@@ -117,6 +118,17 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     Route::get('/restaurant-expense/{id}/edit', [RestaurantExpencesController::class, 'edit'])->name('admin.resExpEdit');
     Route::post('/restaurant-expense-update', [RestaurantExpencesController::class, 'update']);
     Route::get('/restaurant-expense/{id}', [RestaurantExpencesController::class, 'delete']);
+
+
+    
+    // employee 
+    Route::get('/transaction-expense', [TransactionController::class, 'getExpense'])->name('admin.expense');
+    Route::post('/transaction', [TransactionController::class, 'store']);
+
+
+
+
+
 
 });
   

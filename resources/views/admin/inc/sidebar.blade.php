@@ -105,12 +105,12 @@
             </a>
           </li>
 
-          {{-- <li class="nav-item">
-            <a href="{{route('admin.employeehistory')}}" class="nav-link {{ (request()->is('admin/employee-history*')) ? 'active' : '' }}">
+          <li class="nav-item">
+            <a href="{{route('admin.income')}}" class="nav-link {{ (request()->is('admin/transaction-income')) ? 'active' : '' }}">
               <i class="far fa-circle nav-icon"></i>
-              <p>Employee History</p>
+              <p>Income</p>
             </a>
-          </li> --}}
+          </li>
 
         </ul>
       </li>

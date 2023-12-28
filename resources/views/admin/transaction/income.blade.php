@@ -30,7 +30,7 @@
                 <form id="createThisForm">
                   @csrf
                   <input type="hidden" class="form-control" id="codeid" name="codeid">
-                  <input type="hidden" class="form-control" id="table_type" name="table_type" value="Expense">
+                  <input type="hidden" class="form-control" id="table_type" name="table_type" value="Income">
                   
 
                   <div class="row">

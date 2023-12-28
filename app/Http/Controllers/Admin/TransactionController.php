@@ -14,10 +14,18 @@ class TransactionController extends Controller
 {
     public function getExpense()
     {
-        $data = Transaction::orderby('id','DESC')->get();
+        $data = Transaction::where('table_type', 'Expense')->orderby('id','DESC')->get();
         $accounts = Account::where('status', '1')->get();
         $coa = ChartOfAccount::where('account_head','Expenses')->get();
         return view('admin.transaction.expense', compact('data','accounts','coa'));
+    }
+
+    public function getIncome()
+    {
+        $data = Transaction::where('table_type', 'Income')->orderby('id','DESC')->get();
+        $accounts = Account::where('status', '1')->get();
+        $coa = ChartOfAccount::where('account_head','Income')->get();
+        return view('admin.transaction.income', compact('data','accounts','coa'));
     }
 
 
@@ -54,5 +62,14 @@ class TransactionController extends Controller
         }else{
             return response()->json(['status'=> 303,'message'=>'Server Error!!']);
         }
+    }
+
+    public function edit($id)
+    {
+        $where = [
+            'id'=>$id
+        ];
+        $info = Transaction::where($where)->get()->first();
+        return response()->json($info);
     }
 }

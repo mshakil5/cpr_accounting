@@ -124,6 +124,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
     // employee 
     Route::get('/transaction-expense', [TransactionController::class, 'getExpense'])->name('admin.expense');
     Route::get('/transaction-income', [TransactionController::class, 'getIncome'])->name('admin.income');
+    Route::get('/transaction-asset', [TransactionController::class, 'getAsset'])->name('admin.asset');
+    Route::get('/transaction-liabilities', [TransactionController::class, 'getLiabilities'])->name('admin.liabilities');
     Route::post('/transaction', [TransactionController::class, 'store']);
     Route::get('/transaction/{id}/edit', [TransactionController::class, 'edit']);
 

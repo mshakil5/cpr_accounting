@@ -112,6 +112,20 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{route('admin.asset')}}" class="nav-link {{ (request()->is('admin/transaction-asset')) ? 'active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Asset</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{route('admin.liabilities')}}" class="nav-link {{ (request()->is('admin/transaction-liabilities')) ? 'active' : '' }}">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Liabilities</p>
+            </a>
+          </li>
+
         </ul>
       </li>
 

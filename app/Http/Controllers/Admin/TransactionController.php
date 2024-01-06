@@ -28,6 +28,22 @@ class TransactionController extends Controller
         return view('admin.transaction.income', compact('data','accounts','coa'));
     }
 
+    public function getAsset()
+    {
+        $data = Transaction::where('table_type', 'Assets')->orderby('id','DESC')->get();
+        $accounts = Account::where('status', '1')->get();
+        $coa = ChartOfAccount::where('account_head','Assets')->get();
+        return view('admin.transaction.asset', compact('data','accounts','coa'));
+    }
+
+    public function getLiabilities()
+    {
+        $data = Transaction::where('table_type', 'Liabilities')->orderby('id','DESC')->get();
+        $accounts = Account::where('status', '1')->get();
+        $coa = ChartOfAccount::where('account_head','Liabilities')->get();
+        return view('admin.transaction.liabilities', compact('data','accounts','coa'));
+    }
+
 
     public function store(Request $request)
     {

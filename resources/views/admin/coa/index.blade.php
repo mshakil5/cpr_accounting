@@ -58,12 +58,26 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                       <div class="form-group">
                         <label>Account name</label>
                         <input type="text" id="account_name" class="form-control" name="account_name" />
                       </div>
                     </div>
+
+                    
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Branch</label>
+                        <select name="branch" id="branch" class="form-control">
+                          <option value="">Select</option>
+                          <option value="Restaurant">Restaurant</option>
+                          <option value="Resort">Resort</option>
+                        </select>
+                      </div>
+                    </div>
+
+
                   </div>
 
                   <div class="row">
@@ -117,6 +131,7 @@
                   <th>Account Head</th>
                   <th>Sub Account Head</th>
                   <th>Account Name</th>
+                  <th>Branch</th>
                   <th>Description</th>
                   <th>Action</th>
                 </tr>
@@ -128,6 +143,7 @@
                     <td style="text-align: center">{{$data->account_head}}</td>
                     <td style="text-align: center">{{$data->sub_account_head}}</td>
                     <td style="text-align: center">{{$data->account_name}}</td>
+                    <td style="text-align: center">{{$data->branch}}</td>
                     <td style="text-align: center">{{$data->description}}</td>
                     
                     <td style="text-align: center">
@@ -243,6 +259,7 @@
               form_data.append("sub_account_head", $("#sub_account_head").val());
               form_data.append("account_name", $("#account_name").val());
               form_data.append("description", $("#description").val());
+              form_data.append("branch", $("#branch").val());
 
               $.ajax({
                 url: url,
@@ -283,6 +300,7 @@
               form_data.append("sub_account_head", $("#sub_account_head").val());
               form_data.append("account_name", $("#account_name").val());
               form_data.append("description", $("#description").val());
+              form_data.append("branch", $("#branch").val());
               form_data.append("codeid", $("#codeid").val());
 
               $.ajax({
@@ -379,6 +397,7 @@
           $("#sub_account_head").val(data.sub_account_head);
           $("#account_name").val(data.account_name);
           $("#description").val(data.description);
+          $("#branch").val(data.branch);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');
           $("#addThisFormContainer").show(300);

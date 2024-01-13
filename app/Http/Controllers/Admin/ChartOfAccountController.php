@@ -40,6 +40,12 @@ class ChartOfAccountController extends Controller
             exit();
         }
 
+        if(empty($request->branch)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Branch \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
         if(empty($request->account_name)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Account Name \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -52,6 +58,7 @@ class ChartOfAccountController extends Controller
         $data->sub_account_head = $request->sub_account_head;
         $data->account_name = $request->account_name;
         $data->description = $request->description;
+        $data->branch = $request->branch;
         $data->date = now();
         $data->created_by = Auth::user()->id;
         if ($data->save()) {
@@ -85,6 +92,12 @@ class ChartOfAccountController extends Controller
             exit();
         }
 
+        if(empty($request->branch)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Branch \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
         if(empty($request->account_name)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Account Name \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -96,6 +109,7 @@ class ChartOfAccountController extends Controller
         $data->sub_account_head = $request->sub_account_head;
         $data->account_name = $request->account_name;
         $data->description = $request->description;
+        $data->branch = $request->branch;
         $data->updated_by = Auth::user()->id;
         if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";

@@ -52,7 +52,6 @@
                     <div class="col-sm-6">
                       <div class="form-group">
                         <label>Branch</label>
-                        
                         <select name="branch" id="branch" class="form-control">
                           <option value="">Select</option>
                           <option value="Restaurant">Restaurant</option>

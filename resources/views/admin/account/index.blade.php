@@ -17,11 +17,11 @@
 
 
     <!-- Main content -->
-    <section class="content" id="addThisFormContainer">
+    <section class="content mt-3" id="addThisFormContainer">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-md-center">
           <!-- right column -->
-          <div class="col-md-12">
+          <div class="col-md-8">
             <!-- general form elements disabled -->
             <div class="card card-secondary">
               <div class="card-header">
@@ -49,7 +49,19 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Branch</label>
+                        
+                        <select name="branch" id="branch" class="form-control">
+                          <option value="">Select</option>
+                          <option value="Restaurant">Restaurant</option>
+                          <option value="Resort">Resort</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
                       <div class="form-group">
                         <label>Description</label>
                         <input type="text" class="form-control" id="description" name="description">
@@ -98,6 +110,7 @@
                   <th>Sl</th>
                   <th>Name</th>
                   <th>Balance</th>
+                  <th>Branch</th>
                   <th>Description</th>
                   <th>Action</th>
                 </tr>
@@ -108,6 +121,7 @@
                     <td style="text-align: center">{{ $key + 1 }}</td>
                     <td style="text-align: center">{{$data->name}}</td>
                     <td style="text-align: center">{{$data->balance}}</td>
+                    <td style="text-align: center">{{$data->branch}}</td>
                     <td style="text-align: center">{{$data->description}}</td>
                     
                     <td style="text-align: center">
@@ -179,6 +193,7 @@
               var form_data = new FormData();
               form_data.append("name", $("#name").val());
               form_data.append("balance", $("#balance").val());
+              form_data.append("branch", $("#branch").val());
               form_data.append("description", $("#description").val());
               $.ajax({
                 url: url,
@@ -217,6 +232,7 @@
               var form_data = new FormData();
               form_data.append("name", $("#name").val());
               form_data.append("balance", $("#balance").val());
+              form_data.append("branch", $("#branch").val());
               form_data.append("description", $("#description").val());
               form_data.append("codeid", $("#codeid").val());
               
@@ -308,6 +324,7 @@
       function populateForm(data){
           $("#name").val(data.name);
           $("#balance").val(data.balance);
+          $("#branch").val(data.branch);
           $("#description").val(data.description);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');

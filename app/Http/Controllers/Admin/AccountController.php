@@ -28,6 +28,13 @@ class AccountController extends Controller
             exit();
         }
 
+        
+        if(empty($request->branch)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Branch \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+
         $chkname = Account::where('name',$request->name)->first();
         if($chkname){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This account name already added.</b></div>";
@@ -37,6 +44,7 @@ class AccountController extends Controller
         $data = new Account;
         $data->name = $request->name;
         $data->balance = $request->balance;
+        $data->branch = $request->branch;
         $data->description = $request->description;
         $data->created_by = Auth::user()->id;
         if ($data->save()) {
@@ -82,6 +90,7 @@ class AccountController extends Controller
         $data = Account::find($request->codeid);
         $data->name = $request->name;
         $data->balance = $request->balance;
+        $data->branch = $request->branch;
         $data->description = $request->description;
         $data->updated_by = Auth::user()->id;
         if ($data->save()) {

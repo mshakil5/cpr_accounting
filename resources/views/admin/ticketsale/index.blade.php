@@ -15,13 +15,12 @@
   <!-- /.content -->
 
 
-
     <!-- Main content -->
-    <section class="content" id="addThisFormContainer">
+    <section class="content mt-3" id="addThisFormContainer">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-md-center">
           <!-- right column -->
-          <div class="col-md-12">
+          <div class="col-md-8">
             <!-- general form elements disabled -->
             <div class="card card-secondary">
               <div class="card-header">

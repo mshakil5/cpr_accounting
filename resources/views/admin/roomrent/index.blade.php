@@ -36,21 +36,21 @@
                   
 
                   <div class="row">
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                       <div class="form-group">
                         <label>Date</label>
                         <input type="date" class="form-control" id="date" name="date" value="{{date('Y-m-d')}}">
                       </div>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-6">
                       <div class="form-group">
                         <label>Visitors Name</label>
                         <input type="text" class="form-control" id="v_name" name="v_name">
                       </div>
                     </div>
 
-                    <div class="col-sm-4">
+                    <div class="col-sm-3">
                       <div class="form-group">
                         <label>Number of Visitors</label>
                         <input type="number" class="form-control" id="v_number" name="v_number">
@@ -84,7 +84,7 @@
                         <input type="number" class="form-control" id="v_nid" name="v_nid">
                       </div>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-4">
                       <div class="form-group">
                         <label>Room Name or Number</label>
                         <input type="text" class="form-control" id="room_number" name="room_number">
@@ -132,6 +132,9 @@
                 <tr>
                   <th>Sl</th>
                   <th>Date</th>
+                  <th>Visitors Name</th>
+                  <th>Visitors Address</th>
+                  <th>NID</th>
                   <th>Amount</th>
                   <th>Action</th>
                 </tr>
@@ -141,6 +144,9 @@
                   <tr>
                     <td style="text-align: center">{{ $key + 1 }}</td>
                     <td style="text-align: center">{{$data->date}}</td>
+                    <td style="text-align: center">{{$data->v_name}}</td>
+                    <td style="text-align: center">{{$data->v_address}}</td>
+                    <td style="text-align: center">{{$data->v_nid}}</td>
                     <td style="text-align: center">{{$data->amount}}</td>
                     
                     <td style="text-align: center">
@@ -225,6 +231,11 @@
               var form_data = new FormData();
               form_data.append("date", $("#date").val());
               form_data.append("amount", $("#amount").val());
+              form_data.append("room_number", $("#room_number").val());
+              form_data.append("v_nid", $("#v_nid").val());
+              form_data.append("v_address", $("#v_address").val());
+              form_data.append("v_number", $("#v_number").val());
+              form_data.append("v_name", $("#v_name").val());
 
               $.ajax({
                 url: url,
@@ -264,6 +275,11 @@
               var form_data = new FormData();
               form_data.append("date", $("#date").val());
               form_data.append("amount", $("#amount").val());
+              form_data.append("room_number", $("#room_number").val());
+              form_data.append("v_nid", $("#v_nid").val());
+              form_data.append("v_address", $("#v_address").val());
+              form_data.append("v_number", $("#v_number").val());
+              form_data.append("v_name", $("#v_name").val());
               form_data.append("codeid", $("#codeid").val());
               
               $.ajax({
@@ -340,6 +356,11 @@
       function populateForm(data){
           $("#date").val(data.date);
           $("#amount").val(data.amount);
+          $("#room_number").val(data.room_number);
+          $("#v_nid").val(data.v_nid);
+          $("#v_address").val(data.v_address);
+          $("#v_number").val(data.v_number);
+          $("#v_name").val(data.v_name);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');
           $("#addBtn").html('Update');

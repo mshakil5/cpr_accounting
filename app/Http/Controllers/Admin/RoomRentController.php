@@ -33,6 +33,11 @@ class RoomRentController extends Controller
         $data = new RoomRent;
         $data->date = $request->date;
         $data->amount = $request->amount;
+        $data->v_name = $request->v_name;
+        $data->v_number = $request->v_number;
+        $data->v_address = $request->v_address;
+        $data->room_number = $request->room_number;
+        $data->v_nid = $request->v_nid;
         $data->created_by = Auth::user()->id;
         if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
@@ -70,6 +75,11 @@ class RoomRentController extends Controller
         $data = RoomRent::find($request->codeid);
         $data->date = $request->date;
         $data->amount = $request->amount;
+        $data->v_name = $request->v_name;
+        $data->v_number = $request->v_number;
+        $data->v_address = $request->v_address;
+        $data->room_number = $request->room_number;
+        $data->v_nid = $request->v_nid;
         $data->updated_by = Auth::user()->id;
         if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";

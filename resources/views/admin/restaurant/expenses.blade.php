@@ -17,11 +17,11 @@
 
 
     <!-- Main content -->
-    <section class="content" id="addThisFormContainer">
+    <section class="content mt-3" id="addThisFormContainer">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-md-center">
           <!-- right column -->
-          <div class="col-md-12">
+          <div class="col-md-8">
             <!-- general form elements disabled -->
             <div class="card card-secondary">
               <div class="card-header">
@@ -46,17 +46,19 @@
                         </select>
                       </div>
                     </div>
-                    
-                  </div>  
 
-                  <div class="row">
+                    
                     <div class="col-sm-6">
                       <div class="form-group">
                         <label>Date</label>
                         <input type="date" class="form-control" id="date" name="date" value="{{date('Y-m-d')}}">
                       </div>
                     </div>
-                    <div class="col-sm-6">
+                    
+                  </div>  
+
+                  <div class="row">
+                    <div class="col-sm-12">
                       <div class="form-group">
                         <label>Description</label>
                         <input type="text" class="form-control" id="description" name="description">

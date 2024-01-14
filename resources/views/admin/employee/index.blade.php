@@ -50,7 +50,19 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-sm-12">
+
+                    <div class="col-sm-6">
+                      <div class="form-group">
+                        <label>Branch</label>
+                        <select name="branch" id="branch" class="form-control">
+                          <option value="">Select</option>
+                          <option value="Restaurant">Restaurant</option>
+                          <option value="Resort">Resort</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-6">
                       <div class="form-group">
                         <label>Address</label>
                         <input type="text" class="form-control" id="address" name="address">
@@ -99,6 +111,7 @@
                 <tr>
                   <th>Sl</th>
                   <th>Name</th>
+                  <th>Branch</th>
                   <th>Phone</th>
                   <th>Address</th>
                   <th>Action</th>
@@ -109,6 +122,7 @@
                   <tr>
                     <td style="text-align: center">{{ $key + 1 }}</td>
                     <td style="text-align: center">{{$data->name}}</td>
+                    <td style="text-align: center">{{$data->branch}}</td>
                     <td style="text-align: center">{{$data->phone}}</td>
                     <td style="text-align: center">{{$data->address}}</td>
                     
@@ -185,6 +199,7 @@
               form_data.append("address", $("#address").val());
               form_data.append("phone", $("#phone").val());
               form_data.append("name", $("#name").val());
+              form_data.append("branch", $("#branch").val());
 
               $.ajax({
                 url: url,
@@ -224,6 +239,7 @@
               form_data.append("address", $("#address").val());
               form_data.append("phone", $("#phone").val());
               form_data.append("name", $("#name").val());
+              form_data.append("branch", $("#branch").val());
               form_data.append("codeid", $("#codeid").val());
               
               $.ajax({
@@ -301,6 +317,7 @@
           $("#name").val(data.name);
           $("#phone").val(data.phone);
           $("#address").val(data.address);
+          $("#branch").val(data.branch);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');
           $("#addBtn").html('Update');

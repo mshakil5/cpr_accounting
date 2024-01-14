@@ -23,6 +23,11 @@ class EmployeeController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        if(empty($request->branch)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Branch \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         if(empty($request->phone)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Phone \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -32,6 +37,7 @@ class EmployeeController extends Controller
         $data = new Employee;
         $data->name = $request->name;
         $data->phone = $request->phone;
+        $data->branch = $request->branch;
         $data->address = $request->address;
 
         $data->created_by = Auth::user()->id;
@@ -61,6 +67,11 @@ class EmployeeController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        if(empty($request->branch)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Branch \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         if(empty($request->phone)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Phone \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -71,6 +82,7 @@ class EmployeeController extends Controller
         $data->name = $request->name;
         $data->phone = $request->phone;
         $data->address = $request->address;
+        $data->branch = $request->branch;
         $data->updated_by = Auth::user()->id;
         if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";

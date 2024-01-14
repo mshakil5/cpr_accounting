@@ -17,11 +17,11 @@
 
 
     <!-- Main content -->
-    <section class="content" id="addThisFormContainer">
+    <section class="content mt-3" id="addThisFormContainer">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row justify-content-md-center">
           <!-- right column -->
-          <div class="col-md-12">
+          <div class="col-md-8">
             <!-- general form elements disabled -->
             <div class="card card-secondary">
               <div class="card-header">
@@ -36,17 +36,58 @@
                   
 
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                       <div class="form-group">
                         <label>Date</label>
                         <input type="date" class="form-control" id="date" name="date" value="{{date('Y-m-d')}}">
                       </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Visitors Name</label>
+                        <input type="text" class="form-control" id="v_name" name="v_name">
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Number of Visitors</label>
+                        <input type="number" class="form-control" id="v_number" name="v_number">
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                  <div class="row">
+
+                    <div class="col-sm-8">
+                      <div class="form-group">
+                        <label>Address</label>
+                        <input type="text" class="form-control" id="v_address" name="v_address">
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
                       <div class="form-group">
                         <label>Rent Amount</label>
                         <input type="number" class="form-control" id="amount" name="amount">
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-sm-8">
+                      <div class="form-group">
+                        <label>NID</label>
+                        <input type="number" class="form-control" id="v_nid" name="v_nid">
+                      </div>
+                    </div>
+                    <div class="col-sm-8">
+                      <div class="form-group">
+                        <label>Room Name or Number</label>
+                        <input type="text" class="form-control" id="room_number" name="room_number">
                       </div>
                     </div>
                   </div>

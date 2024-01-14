@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->text('branch')->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->double('due_amount',10,2)->default(0);

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('sub_account_head')->nullable();
             $table->string('account_name')->nullable();
             $table->string('date')->nullable();
+            $table->text('branch')->nullable();
             $table->text('description')->nullable();
             $table->boolean('status')->default(1);
             $table->string('updated_by')->nullable();

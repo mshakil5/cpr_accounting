@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\ChartOfAccountController;
 use App\Http\Controllers\Admin\RestaurantExpencesController;
 use App\Http\Controllers\Admin\SupplierController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\DaybookController;
 use App\Http\Controllers\Admin\TransactionController;
 
 
@@ -131,6 +132,8 @@ Route::group(['prefix' =>'admin/', 'middleware' => ['auth', 'is_admin']], functi
 
 
 
+    // employee 
+    Route::get('/daybook', [DaybookController::class, 'daybook'])->name('admin.daybook');
 
 
 

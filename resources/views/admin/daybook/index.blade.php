@@ -18,7 +18,7 @@
               <div class="card-body">
                 <div class="ermsg"></div>
                 <div class="row">
-                    <div class="col-sm-5">
+                    <div class="col-sm-3">
                       <div class="form-group">
                         <label>Account Name</label>
                         <select name="account_id" id="account_id" class="form-control">
@@ -29,15 +29,30 @@
                         </select>
                       </div>
                     </div>
-                    <div class="col-sm-5">
+                    <div class="col-sm-3">
                         <div class="form-group">
                             <label>Branch</label>
                             <select name="branch" id="branch" class="form-control">
-                              <option value="">Select</option>
+                              <option value="">All</option>
                               <option value="Restaurant">Restaurant</option>
                               <option value="Resort">Resort</option>
                             </select>
                         </div>
+                    </div>
+
+                    
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                          <label>From Date</label>
+                          <input type="date" name="fromdate" id="fromdate" class="form-control">
+                      </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                      <div class="form-group">
+                        <label>To Date</label>
+                        <input type="date" name="todate" id="todate" class="form-control">
+                      </div>
                     </div>
 
                     <div class="col-sm-2">

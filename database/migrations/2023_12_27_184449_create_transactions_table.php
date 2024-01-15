@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('date')->nullable();
             $table->bigInteger('account_id')->unsigned()->nullable();
             $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
-            $table->bigInteger('chart_of_account_id')->unsigned();
+            $table->bigInteger('chart_of_account_id')->unsigned()->nullable();
             $table->foreign('chart_of_account_id')->references('id')->on('chart_of_accounts')->onDelete('cascade');
             $table->bigInteger('employee_id')->unsigned()->nullable();
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');

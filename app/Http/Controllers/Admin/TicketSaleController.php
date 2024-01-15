@@ -66,6 +66,7 @@ class TicketSaleController extends Controller
             $tran = new Transaction();
             $tran->date = $request->date;
             $tran->account_id = $request->account_id;
+            $tran->ticket_sale_id = $data->id;
             $tran->table_type = "Income";
             $tran->tran_title = "Ticket Sale";
             $tran->transaction_type = "Current";
@@ -120,6 +121,11 @@ class TicketSaleController extends Controller
         }
 
         $data = TicketSale::find($request->codeid);
+
+            $account = Account::find($data->account_id);
+            $account->balance = $account->balance - $data->amount;
+            $account->save();
+
         $data->date = $request->date;
         $data->number = $request->number;
         $data->price_per_unit = $request->price_per_unit;
@@ -128,21 +134,16 @@ class TicketSaleController extends Controller
         $data->updated_by = Auth::user()->id;
         if ($data->save()) {
 
-            $account = Account::find($request->account_id);
-            $account->balance = $account->balance + $request->amount;
-            $account->save();
+            $upaccount = Account::find($request->account_id);
+            $upaccount->balance = $upaccount->balance + $request->amount;
+            $upaccount->save();
 
-            $tran = new Transaction();
+            $chktranid = Transaction::where('ticket_sale_id', $request->codeid)->first()->id;
+            $tran = Transaction::find($chktranid);
             $tran->date = $request->date;
             $tran->account_id = $request->account_id;
-            $tran->table_type = "Income";
-            $tran->tran_title = "Ticket Sale";
-            $tran->transaction_type = "Current";
             $tran->amount = $request->amount;
             $tran->save();
-
-
-
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";
             return response()->json(['status'=> 300,'message'=>$message]);

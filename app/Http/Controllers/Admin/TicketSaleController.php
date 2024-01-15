@@ -71,6 +71,7 @@ class TicketSaleController extends Controller
             $tran->tran_title = "Ticket Sale";
             $tran->transaction_type = "Current";
             $tran->amount = $request->amount;
+            $tran->created_by = Auth::user()->id;
             $tran->save();
 
 
@@ -143,6 +144,7 @@ class TicketSaleController extends Controller
             $tran->date = $request->date;
             $tran->account_id = $request->account_id;
             $tran->amount = $request->amount;
+            $tran->updated_by = Auth::user()->id;
             $tran->save();
 
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";

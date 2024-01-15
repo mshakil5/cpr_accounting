@@ -62,10 +62,20 @@
 
                   <div class="row">
 
-                    <div class="col-sm-8">
+                    <div class="col-sm-4">
                       <div class="form-group">
                         <label>Address</label>
                         <input type="text" class="form-control" id="v_address" name="v_address">
+                      </div>
+                    </div>
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Payment Receive Method</label>
+                        <select name="account_id" id="account_id" class="form-control">
+                          @foreach ($accounts as $item)
+                          <option value="{{$item->id}}">{{$item->name}}</option>
+                          @endforeach
+                        </select>
                       </div>
                     </div>
                     <div class="col-sm-4">
@@ -236,6 +246,7 @@
               form_data.append("v_address", $("#v_address").val());
               form_data.append("v_number", $("#v_number").val());
               form_data.append("v_name", $("#v_name").val());
+              form_data.append("account_id", $("#account_id").val());
 
               $.ajax({
                 url: url,
@@ -280,6 +291,7 @@
               form_data.append("v_address", $("#v_address").val());
               form_data.append("v_number", $("#v_number").val());
               form_data.append("v_name", $("#v_name").val());
+              form_data.append("account_id", $("#account_id").val());
               form_data.append("codeid", $("#codeid").val());
               
               $.ajax({
@@ -361,6 +373,7 @@
           $("#v_address").val(data.v_address);
           $("#v_number").val(data.v_number);
           $("#v_name").val(data.v_name);
+          $("#account_id").val(data.account_id);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');
           $("#addBtn").html('Update');

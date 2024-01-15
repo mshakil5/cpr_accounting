@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('room_rents', function (Blueprint $table) {
             $table->id();
             $table->string('date')->nullable();
+            $table->bigInteger('account_id')->unsigned()->nullable();
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->string('v_name')->nullable();
             $table->string('v_number')->nullable();
             $table->string('v_address')->nullable();

@@ -193,6 +193,7 @@
       $("#FormCloseBtn").click(function(){
           $("#addThisFormContainer").hide(200);
           $("#newBtn").show(100);
+          window.setTimeout(function(){location.reload()},100)
           clearform();
       });
 
@@ -213,6 +214,7 @@
       var upurl = "{{URL::to('/admin/ticket-sale-update')}}";
       // console.log(url);
       $("#addBtn").click(function(){
+            $(this).prop('disabled', true);
       //   alert("#addBtn");
           if($(this).val() == 'Create') {
 
@@ -232,6 +234,7 @@
                 success: function (d) {
                     if (d.status == 303) {
                         $(".ermsg").html(d.message);
+                        $("#addBtn").prop('disabled', false);
                     }else if(d.status == 300){
 
                       $(function() {

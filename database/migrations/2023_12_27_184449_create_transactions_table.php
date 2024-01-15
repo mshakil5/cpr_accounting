@@ -22,6 +22,10 @@ return new class extends Migration
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->bigInteger('supplier_id')->unsigned()->nullable();
             $table->foreign('supplier_id')->references('id')->on('suppliers')->onDelete('cascade');
+            $table->bigInteger('ticket_sale_id')->unsigned()->nullable();
+            $table->foreign('ticket_sale_id')->references('id')->on('ticket_sales')->onDelete('cascade');
+            $table->bigInteger('room_rent_id')->unsigned()->nullable();
+            $table->foreign('room_rent_id')->references('id')->on('room_rents')->onDelete('cascade');
             $table->string('table_type')->nullable();
             $table->string('tran_title')->nullable();
             $table->string('transaction_type')->nullable();

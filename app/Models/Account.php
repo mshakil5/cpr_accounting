@@ -13,4 +13,9 @@ class Account extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function ticketsale()
+    {
+        return $this->hasMany(TicketSale::class);
+    }
 }

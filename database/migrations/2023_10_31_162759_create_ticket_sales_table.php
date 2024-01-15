@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('ticket_sales', function (Blueprint $table) {
             $table->id();
             $table->string('date')->nullable();
+            $table->bigInteger('account_id')->unsigned()->nullable();
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             $table->string('number')->nullable();
             $table->double('price_per_unit',10,2)->nullable();
             $table->double('amount',10,2)->nullable();

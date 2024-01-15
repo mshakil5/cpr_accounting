@@ -53,14 +53,26 @@
                   
 
                   <div class="row">
-                    <div class="col-sm-6">
+                    <div class="col-sm-4">
                       <div class="form-group">
                         <label>Price per ticket</label>
                         <input type="number" class="form-control" id="price_per_unit" name="price_per_unit" value="50">
                       </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    
+                    <div class="col-sm-4">
+                      <div class="form-group">
+                        <label>Payment Receive Method</label>
+                        <select name="account_id" id="account_id" class="form-control">
+                          @foreach ($accounts as $item)
+                          <option value="{{$item->id}}">{{$item->name}}</option>
+                          @endforeach
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="col-sm-4">
                       <div class="form-group">
                         <label>Amount</label>
                         <input type="number" class="form-control" id="amount" name="amount" readonly>
@@ -108,6 +120,7 @@
                 <tr>
                   <th>Sl</th>
                   <th>Date</th>
+                  <th>Account</th>
                   <th>Number of Tickets</th>
                   <th>Ticket Price </th>
                   <th>Amount</th>
@@ -119,6 +132,7 @@
                   <tr>
                     <td style="text-align: center">{{ $key + 1 }}</td>
                     <td style="text-align: center">{{$data->date}}</td>
+                    <td style="text-align: center">{{$data->account->name}}</td>
                     <td style="text-align: center">{{$data->number}}</td>
                     <td style="text-align: center">{{$data->price_per_unit}}</td>
                     <td style="text-align: center">{{$data->amount}}</td>
@@ -207,6 +221,7 @@
               form_data.append("number", $("#number").val());
               form_data.append("amount", $("#amount").val());
               form_data.append("price_per_unit", $("#price_per_unit").val());
+              form_data.append("account_id", $("#account_id").val());
 
               $.ajax({
                 url: url,
@@ -248,6 +263,7 @@
               form_data.append("number", $("#number").val());
               form_data.append("amount", $("#amount").val());
               form_data.append("price_per_unit", $("#price_per_unit").val());
+              form_data.append("account_id", $("#account_id").val());
               form_data.append("codeid", $("#codeid").val());
               
               $.ajax({
@@ -325,6 +341,7 @@
           $("#date").val(data.date);
           $("#amount").val(data.amount);
           $("#price_per_unit").val(data.price_per_unit);
+          $("#account_id").val(data.account_id);
           $("#number").val(data.number);
           $("#codeid").val(data.id);
           $("#addBtn").val('Update');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Account;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\TicketSale;
@@ -13,7 +14,8 @@ class TicketSaleController extends Controller
     public function index()
     {
         $data = TicketSale::orderby('id','DESC')->get();
-        return view('admin.ticketsale.index', compact('data'));
+        $accounts = Account::where('branch','Resort')->orderby('id','ASC')->get();
+        return view('admin.ticketsale.index', compact('data','accounts'));
     }
 
     public function store(Request $request)
@@ -28,6 +30,14 @@ class TicketSaleController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+
+        
+        if(empty($request->account_id)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Payment Receive Method \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
+        
         if(empty($request->price_per_unit)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Ticket Price \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -44,6 +54,7 @@ class TicketSaleController extends Controller
         $data->number = $request->number;
         $data->price_per_unit = $request->price_per_unit;
         $data->amount = $request->amount;
+        $data->account_id = $request->account_id;
         $data->created_by = Auth::user()->id;
         if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Create Successfully.</b></div>";
@@ -76,6 +87,11 @@ class TicketSaleController extends Controller
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
+        if(empty($request->account_id)){
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Payment Receive Method \" field..!</b></div>";
+            return response()->json(['status'=> 303,'message'=>$message]);
+            exit();
+        }
         if(empty($request->price_per_unit)){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Ticket Price \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -92,6 +108,7 @@ class TicketSaleController extends Controller
         $data->number = $request->number;
         $data->price_per_unit = $request->price_per_unit;
         $data->amount = $request->amount;
+        $data->account_id = $request->account_id;
         $data->updated_by = Auth::user()->id;
         if ($data->save()) {
             $message ="<div class='alert alert-success'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Data Updated Successfully.</b></div>";

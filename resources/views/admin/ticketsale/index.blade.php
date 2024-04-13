@@ -48,7 +48,6 @@
                         <input type="number" class="form-control" id="number" name="number">
                       </div>
                     </div>
-
                   </div>
                   
 

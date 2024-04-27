@@ -18,7 +18,7 @@ class AccountController extends Controller
     public function store(Request $request)
     {
         if(empty($request->name)){
-            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Username \" field..!</b></div>";
+            $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>Please fill \"Account \" field..!</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
             exit();
         }
@@ -35,7 +35,7 @@ class AccountController extends Controller
             exit();
         }
 
-        $chkname = Account::where('name',$request->name)->first();
+        $chkname = Account::where('name',$request->name)->where('branch',$request->branch)->first();
         if($chkname){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This account name already added.</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
@@ -79,7 +79,7 @@ class AccountController extends Controller
             exit();
         }
 
-        $duplicatename = Account::where('name',$request->name)->where('id','!=', $request->codeid)->first();
+        $duplicatename = Account::where('name',$request->name)->where('branch',$request->branch)->where('id','!=', $request->codeid)->first();
         if($duplicatename){
             $message ="<div class='alert alert-warning'><a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a><b>This account name already added.</b></div>";
             return response()->json(['status'=> 303,'message'=>$message]);
